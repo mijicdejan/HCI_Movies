@@ -30,12 +30,20 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlUser = new System.Windows.Forms.Panel();
+            this.tbPassword = new System.Windows.Forms.TextBox();
+            this.tbUsername = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblLoggedInUsername = new System.Windows.Forms.Label();
             this.btnLogIn = new System.Windows.Forms.Button();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.pnlData = new System.Windows.Forms.Panel();
             this.btnDetails = new System.Windows.Forms.Button();
             this.dgvMovies = new System.Windows.Forms.DataGridView();
+            this.Poster = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblName = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
             this.lblYear = new System.Windows.Forms.Label();
@@ -51,16 +59,8 @@
             this.lblActors = new System.Windows.Forms.Label();
             this.lblDirectors = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tbActors = new System.Windows.Forms.TextBox();
             this.tbDirectors = new System.Windows.Forms.TextBox();
-            this.Poster = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.tbPassword = new System.Windows.Forms.TextBox();
+            this.tbActors = new System.Windows.Forms.TextBox();
             this.pnlUser.SuspendLayout();
             this.pnlData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovies)).BeginInit();
@@ -74,7 +74,7 @@
             this.pnlUser.BackColor = System.Drawing.Color.White;
             this.pnlUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlUser.Controls.Add(this.tbPassword);
-            this.pnlUser.Controls.Add(this.textBox1);
+            this.pnlUser.Controls.Add(this.tbUsername);
             this.pnlUser.Controls.Add(this.label2);
             this.pnlUser.Controls.Add(this.label1);
             this.pnlUser.Controls.Add(this.lblLoggedInUsername);
@@ -84,6 +84,42 @@
             this.pnlUser.Name = "pnlUser";
             this.pnlUser.Size = new System.Drawing.Size(988, 60);
             this.pnlUser.TabIndex = 2;
+            // 
+            // tbPassword
+            // 
+            this.tbPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbPassword.Location = new System.Drawing.Point(705, 23);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.Size = new System.Drawing.Size(140, 22);
+            this.tbPassword.TabIndex = 6;
+            // 
+            // tbUsername
+            // 
+            this.tbUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbUsername.Location = new System.Drawing.Point(480, 23);
+            this.tbUsername.Name = "tbUsername";
+            this.tbUsername.Size = new System.Drawing.Size(140, 22);
+            this.tbUsername.TabIndex = 5;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(626, 24);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 18);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "password:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(400, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 18);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "username:";
             // 
             // lblLoggedInUsername
             // 
@@ -186,6 +222,30 @@
             this.dgvMovies.RowHeadersVisible = false;
             this.dgvMovies.Size = new System.Drawing.Size(744, 552);
             this.dgvMovies.TabIndex = 0;
+            // 
+            // Poster
+            // 
+            this.Poster.HeaderText = "Poster";
+            this.Poster.Name = "Poster";
+            this.Poster.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Name";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Release date";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Runtime";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
             // 
             // lblName
             // 
@@ -354,14 +414,6 @@
             this.panel1.Size = new System.Drawing.Size(220, 610);
             this.panel1.TabIndex = 1;
             // 
-            // tbActors
-            // 
-            this.tbActors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbActors.Location = new System.Drawing.Point(10, 450);
-            this.tbActors.Name = "tbActors";
-            this.tbActors.Size = new System.Drawing.Size(180, 22);
-            this.tbActors.TabIndex = 6;
-            // 
             // tbDirectors
             // 
             this.tbDirectors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -370,65 +422,13 @@
             this.tbDirectors.Size = new System.Drawing.Size(180, 22);
             this.tbDirectors.TabIndex = 8;
             // 
-            // Poster
+            // tbActors
             // 
-            this.Poster.HeaderText = "Poster";
-            this.Poster.Name = "Poster";
-            this.Poster.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Name";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Release date";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Runtime";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(400, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 18);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "username:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(626, 24);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 18);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "password:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(480, 23);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(140, 22);
-            this.textBox1.TabIndex = 5;
-            // 
-            // tbPassword
-            // 
-            this.tbPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbPassword.Location = new System.Drawing.Point(705, 23);
-            this.tbPassword.Name = "tbPassword";
-            this.tbPassword.Size = new System.Drawing.Size(140, 22);
-            this.tbPassword.TabIndex = 6;
+            this.tbActors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbActors.Location = new System.Drawing.Point(10, 450);
+            this.tbActors.Name = "tbActors";
+            this.tbActors.Size = new System.Drawing.Size(180, 22);
+            this.tbActors.TabIndex = 6;
             // 
             // MainForm
             // 
@@ -483,7 +483,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.TextBox tbPassword;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
     }
