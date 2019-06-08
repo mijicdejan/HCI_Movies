@@ -5,10 +5,10 @@ namespace HCI_Movies.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class mija : DbContext
+    public partial class MovieDB : DbContext
     {
-        public mija()
-            : base("name=mija")
+        public MovieDB()
+            : base("name=MovieDB")
         {
         }
 

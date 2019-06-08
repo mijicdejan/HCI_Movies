@@ -88,8 +88,8 @@
     <Compile Include="Model\genre.cs" />
     <Compile Include="Model\language.cs" />
     <Compile Include="Model\member_of_cast_and_crew.cs" />
-    <Compile Include="Model\mija.cs" />
     <Compile Include="Model\movie.cs" />
+    <Compile Include="Model\MovieDB.cs" />
     <Compile Include="Model\user.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
