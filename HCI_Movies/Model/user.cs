@@ -23,5 +23,7 @@ namespace HCI_Movies.Model
         [Required]
         [StringLength(8)]
         public string salt { get; set; }
+
+        public sbyte active { get; set; }
     }
 }

@@ -19,6 +19,10 @@ namespace HCI_Movies.Model
         [StringLength(45)]
         public string last_name { get; set; }
 
+        [Required]
+        [StringLength(255)]
+        public string birthplace { get; set; }
+
         [Column(TypeName = "date")]
         public DateTime born { get; set; }
 
@@ -33,6 +37,8 @@ namespace HCI_Movies.Model
         [Required]
         [StringLength(100)]
         public string image { get; set; }
+
+        public sbyte active { get; set; }
 
         public virtual actor actor { get; set; }
 

@@ -46,6 +46,8 @@ namespace HCI_Movies.Model
 
         public decimal? gross { get; set; }
 
+        public sbyte active { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<actor> actors { get; set; }
 

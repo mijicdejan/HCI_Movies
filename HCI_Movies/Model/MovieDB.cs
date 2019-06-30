@@ -59,6 +59,10 @@ namespace HCI_Movies.Model
                 .IsUnicode(false);
 
             modelBuilder.Entity<member_of_cast_and_crew>()
+                .Property(e => e.birthplace)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<member_of_cast_and_crew>()
                 .Property(e => e.bio)
                 .IsUnicode(false);
 
