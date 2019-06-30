@@ -77,6 +77,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddGenreForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddGenreForm.Designer.cs">
+      <DependentUpon>AddGenreForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddLanguageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddLanguageForm.Designer.cs">
+      <DependentUpon>AddLanguageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddMemberOfCastAndCrewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddMemberOfCastAndCrewForm.Designer.cs">
+      <DependentUpon>AddMemberOfCastAndCrewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddMovieForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddMovieForm.Designer.cs">
+      <DependentUpon>AddMovieForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,15 +108,51 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\actor.cs" />
+    <Compile Include="Model\actorCustom.cs" />
     <Compile Include="Model\director.cs" />
+    <Compile Include="Model\directorCustom.cs" />
     <Compile Include="Model\genre.cs" />
+    <Compile Include="Model\genreCustom.cs" />
     <Compile Include="Model\language.cs" />
+    <Compile Include="Model\languageCustom.cs" />
     <Compile Include="Model\member_of_cast_and_crew.cs" />
     <Compile Include="Model\movie.cs" />
     <Compile Include="Model\MovieDB.cs" />
     <Compile Include="Model\user.cs" />
+    <Compile Include="Model\movieCustom.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\ActorsUcl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ActorsUcl.Designer.cs">
+      <DependentUpon>ActorsUcl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DirectorsUcl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\DirectorsUcl.Designer.cs">
+      <DependentUpon>DirectorsUcl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MoviesUcl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\MoviesUcl.Designer.cs">
+      <DependentUpon>MoviesUcl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Year.cs" />
+    <EmbeddedResource Include="AddGenreForm.resx">
+      <DependentUpon>AddGenreForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddLanguageForm.resx">
+      <DependentUpon>AddLanguageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddMemberOfCastAndCrewForm.resx">
+      <DependentUpon>AddMemberOfCastAndCrewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddMovieForm.resx">
+      <DependentUpon>AddMovieForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,6 +165,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\ActorsUcl.resx">
+      <DependentUpon>ActorsUcl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\DirectorsUcl.resx">
+      <DependentUpon>DirectorsUcl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\MoviesUcl.resx">
+      <DependentUpon>MoviesUcl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
