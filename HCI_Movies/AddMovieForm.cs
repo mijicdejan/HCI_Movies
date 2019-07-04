@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HCI_Movies.Model;
+using HCI_Movies.UserControls;
 
 namespace HCI_Movies
 {
@@ -21,7 +22,7 @@ namespace HCI_Movies
         public DateTime ReleaseDate { get; set; }
         public int Runtime { get; set; }
         public decimal Budget { get; set; }
-        public decimal Gross { get; set; }
+        public decimal? Gross { get; set; }
         public string Tagline { get; set; }
         public string PlotSummary { get; set; }
         public List<genre> Genres { get; set; }
@@ -47,7 +48,7 @@ namespace HCI_Movies
             FillActorsList();
             FillDirectorsList();
             ReleaseDate = DateTime.Today;
-            Poster = "C:\\Users\\PC\\Desktop\\HCI\\Images\\defaultPerson.png";
+            Poster = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Posters\\default.png";
             Genres = new List<genre>();
             Languages = new List<language>();
             MovieActors = new List<actor>();
@@ -63,16 +64,23 @@ namespace HCI_Movies
             lvGenres.Columns.Add(header);
             lvGenres.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             lvGenres.HeaderStyle = ColumnHeaderStyle.None;
-            using (MovieDB context = new MovieDB())
+            try
             {
-                lvGenres.CheckBoxes = true;
-                var genres = (from c in context.genres orderby c.name select c).ToList();
-                foreach (var genre in genres)
+                using (MovieDB context = new MovieDB())
                 {
-                    var item = new ListViewItem(genre.name);
-                    item.Tag = genre;
-                    lvGenres.Items.Add(item);
+                    lvGenres.CheckBoxes = true;
+                    var genres = (from c in context.genres where c.active == 1 orderby c.name select c).ToList();
+                    foreach (var genre in genres)
+                    {
+                        var item = new ListViewItem(genre.name);
+                        item.Tag = genre;
+                        lvGenres.Items.Add(item);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
             }
         }
 
@@ -85,16 +93,23 @@ namespace HCI_Movies
             lvLanguages.Columns.Add(header);
             lvLanguages.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             lvLanguages.HeaderStyle = ColumnHeaderStyle.None;
-            using (MovieDB context = new MovieDB())
+            try
             {
-                lvLanguages.CheckBoxes = true;
-                var languages = (from c in context.languages orderby c.name select c).ToList();
-                foreach (var language in languages)
+                using (MovieDB context = new MovieDB())
                 {
-                    var item = new ListViewItem(language.name);
-                    item.Tag = language;
-                    lvLanguages.Items.Add(item);
+                    lvLanguages.CheckBoxes = true;
+                    var languages = (from c in context.languages where c.active == 1 orderby c.name select c).ToList();
+                    foreach (var language in languages)
+                    {
+                        var item = new ListViewItem(language.name);
+                        item.Tag = language;
+                        lvLanguages.Items.Add(item);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
             }
         }
 
@@ -107,16 +122,26 @@ namespace HCI_Movies
             lvActors.Columns.Add(header);
             lvActors.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             lvActors.HeaderStyle = ColumnHeaderStyle.None;
-            using (MovieDB context = new MovieDB())
+            try
             {
-                lvActors.CheckBoxes = true;
-                actors = (from c in context.actors orderby c.member_of_cast_and_crew.first_name select c).ToList();
-                foreach (var actor in actors)
+                using (MovieDB context = new MovieDB())
                 {
-                    var item = new ListViewItem(actor.member_of_cast_and_crew.first_name + " " + actor.member_of_cast_and_crew.last_name);
-                    item.Tag = actor;
-                    lvActors.Items.Add(item);
+                    lvActors.CheckBoxes = true;
+                    actors = (from c in context.actors
+                              where c.member_of_cast_and_crew.active == 1
+                              orderby c.member_of_cast_and_crew.first_name
+                              select c).ToList();
+                    foreach (var actor in actors)
+                    {
+                        var item = new ListViewItem(actor.member_of_cast_and_crew.first_name + " " + actor.member_of_cast_and_crew.last_name);
+                        item.Tag = actor;
+                        lvActors.Items.Add(item);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
             }
         }
 
@@ -129,16 +154,46 @@ namespace HCI_Movies
             lvDirectors.Columns.Add(header);
             lvDirectors.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             lvDirectors.HeaderStyle = ColumnHeaderStyle.None;
-            using (MovieDB context = new MovieDB())
+            try
             {
-                lvDirectors.CheckBoxes = true;
-                directors = (from c in context.directors orderby c.member_of_cast_and_crew.first_name select c).ToList();
-                foreach (var director in directors)
+                using (MovieDB context = new MovieDB())
                 {
-                    var item = new ListViewItem(director.member_of_cast_and_crew.first_name + " " + director.member_of_cast_and_crew.last_name);
-                    item.Tag = director;
-                    lvDirectors.Items.Add(item);
+                    lvDirectors.CheckBoxes = true;
+                    directors = (from c in context.directors
+                                 where c.member_of_cast_and_crew.active == 1
+                                 orderby c.member_of_cast_and_crew.first_name
+                                 select c).ToList();
+                    foreach (var director in directors)
+                    {
+                        var item = new ListViewItem(director.member_of_cast_and_crew.first_name + " " + director.member_of_cast_and_crew.last_name);
+                        item.Tag = director;
+                        lvDirectors.Items.Add(item);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+        }
+
+        private void AllowDecimal(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == '.' && (sender as TextBox).Text.Length == 0)
+            {
+                e.Handled = true;
+                return;
+            }
+            if(e.KeyChar == '.' && (sender as TextBox).Text.LastIndexOf('.') > 0)
+            {
+                e.Handled = true;
+                return;
+            }
+            // allows 0-9 and backspace
+            if ((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != '.')
+            {
+                e.Handled = true;
+                return;
             }
         }
 
@@ -146,39 +201,39 @@ namespace HCI_Movies
         {
             if ("".Equals(tbName.Text))
             {
-                MessageBox.Show("You have to enter movie name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You have to enter movie name.", "Warning", MessageBoxButtons.OK);
             }
             else if("".Equals(tbRuntime.Text))
             {
-                MessageBox.Show("You have to enter runtime.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You have to enter runtime.", "Warning", MessageBoxButtons.OK);
             }
             else if ("".Equals(tbBudget.Text))
             {
-                MessageBox.Show("You have to enter budget.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You have to enter budget.", "Warning", MessageBoxButtons.OK);
             }
             else if ("".Equals(tbTagline.Text))
             {
-                MessageBox.Show("You have to enter tagline.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You have to enter tagline.", "Warning", MessageBoxButtons.OK);
             }
             else if ("".Equals(rtbPlotSummary.Text))
             {
-                MessageBox.Show("You have to enter plot summary.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You have to enter plot summary.", "Warning", MessageBoxButtons.OK);
             }
             else if (lvGenres.CheckedItems.Count == 0)
             {
-                MessageBox.Show("You have to select at least one genre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You have to select at least one genre.", "Warning", MessageBoxButtons.OK);
             }
             else if (lvLanguages.CheckedItems.Count == 0)
             {
-                MessageBox.Show("You have to select at least one language.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You have to select at least one language.", "Warning", MessageBoxButtons.OK);
             }
             else if (lvActors.CheckedItems.Count == 0)
             {
-                MessageBox.Show("You have to select at least one actor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You have to select at least one actor.", "Warning", MessageBoxButtons.OK);
             }
             else if (lvDirectors.CheckedItems.Count == 0)
             {
-                MessageBox.Show("You have to select at least one director.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You have to select at least one director.", "Warning", MessageBoxButtons.OK);
             }
             else
             {
@@ -186,7 +241,14 @@ namespace HCI_Movies
                 ReleaseDate = dtpReleaseDate.Value.Date;
                 Runtime = int.Parse(tbRuntime.Text);
                 Budget = decimal.Parse(tbBudget.Text);
-                Gross = decimal.Parse(tbGross.Text);
+                if ("".Equals(tbGross.Text))
+                {
+                    Gross = null;
+                }
+                else
+                {
+                    Gross = decimal.Parse(tbGross.Text);
+                }
                 Tagline = tbTagline.Text;
                 PlotSummary = rtbPlotSummary.Text;
                 var selectedTags = lvGenres.CheckedItems.Cast<ListViewItem>().Select(x => x.Tag);
@@ -224,6 +286,10 @@ namespace HCI_Movies
             {
                 Poster = file.FileName;
                 pbPoster.Image = Image.FromFile(Poster);
+                if (Poster.Contains(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName))
+                {
+                    Poster = Poster.Substring(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName.Length);
+                }
             }
         }
 
@@ -241,10 +307,12 @@ namespace HCI_Movies
                         {
                             first_name = addMemberOfCastAndCrew.FirstName,
                             last_name = addMemberOfCastAndCrew.LastName,
+                            birthplace = addMemberOfCastAndCrew.Birthplace,
                             born = addMemberOfCastAndCrew.Born,
                             died = died,
                             bio = addMemberOfCastAndCrew.Bio,
-                            image = addMemberOfCastAndCrew.MemberImage
+                            image = addMemberOfCastAndCrew.MemberImage,
+                            active = 1
                         };
                         var actor = new actor()
                         {
@@ -261,13 +329,40 @@ namespace HCI_Movies
                         }
                         context.SaveChanges();
                         FillActorsList();
+                        var actorItems = lvActors.Items;
+                        foreach (var checkedActor in MovieActors.ToList())
+                        {
+                            foreach (var item in actorItems)
+                            {
+                                actor actorItem = (actor)(item as ListViewItem).Tag;
+                                if (actorItem.id == checkedActor.id)
+                                {
+                                    (item as ListViewItem).Checked = true;
+                                }
+                            }
+                        }
                         FillDirectorsList();
+                        var directorItems = lvDirectors.Items;
+                        foreach (var checkedDirector in MovieDirectors.ToList())
+                        {
+                            foreach (var item in directorItems)
+                            {
+                                director directorItem = (director)(item as ListViewItem).Tag;
+                                if (directorItem.id == checkedDirector.id)
+                                {
+                                    (item as ListViewItem).Checked = true;
+                                }
+                            }
+                        }
+                        MoviesUcl.Instance.RefreshTableAndFilters();
+                        ActorsUcl.Instance.RefreshTableAndFilters();
+                        DirectorsUcl.Instance.RefreshTableAndFilters();
+                        MessageBox.Show("Actor successfully added.", "Success", MessageBoxButtons.OK);
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.StackTrace);
-                    MessageBox.Show(ex.StackTrace);
                 }
             }
         }
@@ -286,10 +381,12 @@ namespace HCI_Movies
                         {
                             first_name = addMemberOfCastAndCrew.FirstName,
                             last_name = addMemberOfCastAndCrew.LastName,
+                            birthplace = addMemberOfCastAndCrew.Birthplace,
                             born = addMemberOfCastAndCrew.Born,
                             died = died,
                             bio = addMemberOfCastAndCrew.Bio,
-                            image = addMemberOfCastAndCrew.MemberImage
+                            image = addMemberOfCastAndCrew.MemberImage,
+                            active = 1
                         };
                         var director = new director()
                         {
@@ -306,13 +403,40 @@ namespace HCI_Movies
                         }
                         context.SaveChanges();
                         FillDirectorsList();
+                        var directorItems = lvDirectors.Items;
+                        foreach (var checkedDirector in MovieDirectors.ToList())
+                        {
+                            foreach (var item in directorItems)
+                            {
+                                director directorItem = (director)(item as ListViewItem).Tag;
+                                if (directorItem.id == checkedDirector.id)
+                                {
+                                    (item as ListViewItem).Checked = true;
+                                }
+                            }
+                        }
                         FillActorsList();
+                        var actorItems = lvActors.Items;
+                        foreach (var checkedActor in MovieActors.ToList())
+                        {
+                            foreach (var item in actorItems)
+                            {
+                                actor actorItem = (actor)(item as ListViewItem).Tag;
+                                if (actorItem.id == checkedActor.id)
+                                {
+                                    (item as ListViewItem).Checked = true;
+                                }
+                            }
+                        }
+                        MoviesUcl.Instance.RefreshTableAndFilters();
+                        ActorsUcl.Instance.RefreshTableAndFilters();
+                        DirectorsUcl.Instance.RefreshTableAndFilters();
+                        MessageBox.Show("Director successfully added.", "Success", MessageBoxButtons.OK);
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.StackTrace);
-                    MessageBox.Show(ex.StackTrace);
                 }
             }
         }
@@ -326,17 +450,20 @@ namespace HCI_Movies
             tbGross.Text = Gross == 0 ? "" : Gross.ToString();
             tbTagline.Text = Tagline;
             rtbPlotSummary.Text = PlotSummary;
+            if (Poster.StartsWith("\\"))
+            {
+                Poster = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + Poster;
+            }
             try
             {
                 pbPoster.Image = Image.FromFile(Poster);
             }
             catch (FileNotFoundException ex)
             {
-                // Change to default movie poster
-                pbPoster.Image = Image.FromFile("C:\\Users\\PC\\Desktop\\HCI\\Images\\defaultPerson.png");
+                pbPoster.Image = Image.FromFile(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Posters\\default.png");
             }
             var genreItems = lvGenres.Items;
-            foreach (var genre in Genres)
+            foreach (var genre in Genres.ToList())
             {
                 foreach (var item in genreItems)
                 {
@@ -349,7 +476,7 @@ namespace HCI_Movies
                 checkedGenres.Add(genre);
             }
             var languageItems = lvLanguages.Items;
-            foreach (var language in Languages)
+            foreach (var language in Languages.ToList())
             {
                 foreach (var item in languageItems)
                 {
@@ -362,7 +489,7 @@ namespace HCI_Movies
                 checkedLanguages.Add(language);
             }
             var actorItems = lvActors.Items;
-            foreach(var actor in MovieActors)
+            foreach(var actor in MovieActors.ToList())
             {
                 foreach(var item in actorItems)
                 {
@@ -375,7 +502,7 @@ namespace HCI_Movies
                 checkedActors.Add(actor);
             }
             var directorItems = lvDirectors.Items;
-            foreach (var director in MovieDirectors)
+            foreach (var director in MovieDirectors.ToList())
             {
                 foreach (var item in directorItems)
                 {
@@ -400,31 +527,38 @@ namespace HCI_Movies
             lvGenres.Columns.Add(header);
             lvGenres.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             lvGenres.HeaderStyle = ColumnHeaderStyle.None;
-            using (MovieDB context = new MovieDB())
+            try
             {
-                lvGenres.CheckBoxes = true;
-                List<genre> genres = null;
-                if (text.Equals(""))
+                using (MovieDB context = new MovieDB())
                 {
-                    genres = (from c in context.genres orderby c.name select c).ToList();
-                }
-                else
-                {
-                    genres = (from c in context.genres
-                              where c.name.ToLower().StartsWith(text.ToLower())
-                              orderby c.name
-                              select c).ToList();
-                }
-                foreach (var genre in genres)
-                {
-                    var item = new ListViewItem(genre.name);
-                    item.Tag = genre;
-                    lvGenres.Items.Add(item);
-                    if (checkedGenres.Contains(genre))
+                    lvGenres.CheckBoxes = true;
+                    List<genre> genres = null;
+                    if (text.Equals(""))
                     {
-                        item.Checked = true;
+                        genres = (from c in context.genres where c.active == 1 orderby c.name select c).ToList();
+                    }
+                    else
+                    {
+                        genres = (from c in context.genres
+                                  where c.name.ToLower().StartsWith(text.ToLower()) && c.active == 1
+                                  orderby c.name
+                                  select c).ToList();
+                    }
+                    foreach (var genre in genres)
+                    {
+                        var item = new ListViewItem(genre.name);
+                        item.Tag = genre;
+                        lvGenres.Items.Add(item);
+                        if (Genres.Contains(genre))
+                        {
+                            item.Checked = true;
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
             }
             IsLoadedGenres = true;
         }
@@ -440,31 +574,38 @@ namespace HCI_Movies
             lvLanguages.Columns.Add(header);
             lvLanguages.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             lvLanguages.HeaderStyle = ColumnHeaderStyle.None;
-            using (MovieDB context = new MovieDB())
+            try
             {
-                lvLanguages.CheckBoxes = true;
-                List<language> languages = null;
-                if (text.Equals(""))
+                using (MovieDB context = new MovieDB())
                 {
-                    languages = (from c in context.languages orderby c.name select c).ToList();
-                }
-                else
-                {
-                    languages = (from c in context.languages
-                              where c.name.ToLower().StartsWith(text.ToLower())
-                              orderby c.name
-                              select c).ToList();
-                }
-                foreach (var language in languages)
-                {
-                    var item = new ListViewItem(language.name);
-                    item.Tag = language;
-                    lvLanguages.Items.Add(item);
-                    if (checkedLanguages.Contains(language))
+                    lvLanguages.CheckBoxes = true;
+                    List<language> languages = null;
+                    if (text.Equals(""))
                     {
-                        item.Checked = true;
+                        languages = (from c in context.languages where c.active == 1 orderby c.name select c).ToList();
+                    }
+                    else
+                    {
+                        languages = (from c in context.languages
+                                     where c.name.ToLower().StartsWith(text.ToLower()) && c.active == 1
+                                     orderby c.name
+                                     select c).ToList();
+                    }
+                    foreach (var language in languages)
+                    {
+                        var item = new ListViewItem(language.name);
+                        item.Tag = language;
+                        lvLanguages.Items.Add(item);
+                        if (checkedLanguages.Contains(language))
+                        {
+                            item.Checked = true;
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
             }
             IsLoadedLanguages = true;
         }
@@ -480,32 +621,43 @@ namespace HCI_Movies
             lvActors.Columns.Add(header);
             lvActors.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             lvActors.HeaderStyle = ColumnHeaderStyle.None;
-            using (MovieDB context = new MovieDB())
+            try
             {
-                lvActors.CheckBoxes = true;
-                List<actor> actors = null;
-                if (text.Equals(""))
+                using (MovieDB context = new MovieDB())
                 {
-                    actors = (from c in context.actors orderby c.member_of_cast_and_crew.first_name select c).ToList();
-                }
-                else
-                {
-                    actors = (from c in context.actors
-                              where c.member_of_cast_and_crew.first_name.ToLower().Contains(text.ToLower()) ||
-                              c.member_of_cast_and_crew.last_name.ToLower().Contains(text.ToLower())
-                              orderby c.member_of_cast_and_crew.first_name
-                              select c).ToList();
-                }
-                foreach (var actor in actors)
-                {
-                    var item = new ListViewItem(actor.member_of_cast_and_crew.first_name + " " + actor.member_of_cast_and_crew.last_name);
-                    item.Tag = actor.member_of_cast_and_crew;
-                    lvActors.Items.Add(item);
-                    if (checkedActors.Contains(actor))
+                    lvActors.CheckBoxes = true;
+                    List<actor> actors = null;
+                    if (text.Equals(""))
                     {
-                        item.Checked = true;
+                        actors = (from c in context.actors
+                                  where c.member_of_cast_and_crew.active == 1
+                                  orderby c.member_of_cast_and_crew.first_name
+                                  select c).ToList();
+                    }
+                    else
+                    {
+                        actors = (from c in context.actors
+                                  where (c.member_of_cast_and_crew.first_name.ToLower().Contains(text.ToLower()) ||
+                                  c.member_of_cast_and_crew.last_name.ToLower().Contains(text.ToLower())) &&
+                                  c.member_of_cast_and_crew.active == 1
+                                  orderby c.member_of_cast_and_crew.first_name
+                                  select c).ToList();
+                    }
+                    foreach (var actor in actors)
+                    {
+                        var item = new ListViewItem(actor.member_of_cast_and_crew.first_name + " " + actor.member_of_cast_and_crew.last_name);
+                        item.Tag = actor;
+                        lvActors.Items.Add(item);
+                        if (MovieActors.Contains(actor))
+                        {
+                            item.Checked = true;
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
             }
             IsLoadedActors = true;
         }
@@ -521,32 +673,43 @@ namespace HCI_Movies
             lvDirectors.Columns.Add(header);
             lvDirectors.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             lvDirectors.HeaderStyle = ColumnHeaderStyle.None;
-            using (MovieDB context = new MovieDB())
+            try
             {
-                lvDirectors.CheckBoxes = true;
-                List<director> directors = null;
-                if (text.Equals(""))
+                using (MovieDB context = new MovieDB())
                 {
-                    directors = (from c in context.directors orderby c.member_of_cast_and_crew.first_name select c).ToList();
-                }
-                else
-                {
-                    directors = (from c in context.directors
-                                 where c.member_of_cast_and_crew.first_name.ToLower().Contains(text.ToLower()) ||
-                                 c.member_of_cast_and_crew.last_name.ToLower().Contains(text.ToLower())
-                                 orderby c.member_of_cast_and_crew.first_name
-                                 select c).ToList();
-                }
-                foreach (var director in directors)
-                {
-                    var item = new ListViewItem(director.member_of_cast_and_crew.first_name + " " + director.member_of_cast_and_crew.last_name);
-                    item.Tag = director.member_of_cast_and_crew;
-                    lvDirectors.Items.Add(item);
-                    if (checkedDirectors.Contains(director))
+                    lvDirectors.CheckBoxes = true;
+                    List<director> directors = null;
+                    if (text.Equals(""))
                     {
-                        item.Checked = true;
+                        directors = (from c in context.directors
+                                     where c.member_of_cast_and_crew.active == 1
+                                     orderby c.member_of_cast_and_crew.first_name
+                                     select c).ToList();
+                    }
+                    else
+                    {
+                        directors = (from c in context.directors
+                                     where (c.member_of_cast_and_crew.first_name.ToLower().Contains(text.ToLower()) ||
+                                     c.member_of_cast_and_crew.last_name.ToLower().Contains(text.ToLower())) &&
+                                     c.member_of_cast_and_crew.active == 1
+                                     orderby c.member_of_cast_and_crew.first_name
+                                     select c).ToList();
+                    }
+                    foreach (var director in directors)
+                    {
+                        var item = new ListViewItem(director.member_of_cast_and_crew.first_name + " " + director.member_of_cast_and_crew.last_name);
+                        item.Tag = director;
+                        lvDirectors.Items.Add(item);
+                        if (MovieDirectors.Contains(director))
+                        {
+                            item.Checked = true;
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
             }
             IsLoadedDirectors = true;
         }
@@ -557,11 +720,13 @@ namespace HCI_Movies
             {
                 if (e.Item.Checked)
                 {
-                    checkedActors.Add(((member_of_cast_and_crew)(e.Item as ListViewItem).Tag).actor);
+                    MovieActors.Add((actor)(e.Item as ListViewItem).Tag);
+                    checkedActors.Add(((actor)(e.Item as ListViewItem).Tag));
                 }
                 else
                 {
-                    checkedActors.Remove(((member_of_cast_and_crew)(e.Item as ListViewItem).Tag).actor);
+                    MovieActors.Remove((actor)(e.Item as ListViewItem).Tag);
+                    checkedActors.Remove((actor)(e.Item as ListViewItem).Tag);
                 }
             }
         }
@@ -572,11 +737,13 @@ namespace HCI_Movies
             {
                 if (e.Item.Checked)
                 {
-                    checkedDirectors.Add(((member_of_cast_and_crew)(e.Item as ListViewItem).Tag).director);
+                    MovieDirectors.Add((director)(e.Item as ListViewItem).Tag);
+                    checkedDirectors.Add((director)(e.Item as ListViewItem).Tag);
                 }
                 else
                 {
-                    checkedDirectors.Remove(((member_of_cast_and_crew)(e.Item as ListViewItem).Tag).director);
+                    MovieDirectors.Remove((director)(e.Item as ListViewItem).Tag);
+                    checkedDirectors.Remove((director)(e.Item as ListViewItem).Tag);
                 }
             }
         }
@@ -587,11 +754,13 @@ namespace HCI_Movies
             {
                 if (e.Item.Checked)
                 {
+                    Genres.Add((genre)(e.Item as ListViewItem).Tag);
                     checkedGenres.Add((genre)(e.Item as ListViewItem).Tag);
                 }
                 else
                 {
-                    checkedGenres.Remove((genre)(e.Item as ListViewItem).Tag);
+                    checkedGenres.Add((genre)(e.Item as ListViewItem).Tag);
+                    Genres.Remove((genre)(e.Item as ListViewItem).Tag);
                 }
             }
         }
@@ -602,10 +771,12 @@ namespace HCI_Movies
             {
                 if (e.Item.Checked)
                 {
+                    Languages.Add((language)(e.Item as ListViewItem).Tag);
                     checkedLanguages.Add((language)(e.Item as ListViewItem).Tag);
                 }
                 else
                 {
+                    Languages.Remove((language)(e.Item as ListViewItem).Tag);
                     checkedLanguages.Remove((language)(e.Item as ListViewItem).Tag);
                 }
             }
@@ -616,28 +787,39 @@ namespace HCI_Movies
             AddGenreForm addGenreForm = new AddGenreForm();
             if(DialogResult.OK == addGenreForm.ShowDialog())
             {
-                using (MovieDB context = new MovieDB())
+                try
                 {
-                    var genre = new genre()
+                    using (MovieDB context = new MovieDB())
                     {
-                        name = addGenreForm.GenreName
-                    };
-                    context.genres.Add(genre);
-                    context.SaveChanges();
-                    FillGenresList();
-                    var genreItems = lvGenres.Items;
-                    foreach (var checkedGenre in checkedGenres.ToList())
-                    {
-                        foreach (var item in genreItems)
+                        var genre = new genre()
                         {
-                            genre genreItem = (genre)(item as ListViewItem).Tag;
-                            if (genreItem.id == checkedGenre.id)
+                            name = addGenreForm.GenreName,
+                            active = 1
+                        };
+                        context.genres.Add(genre);
+                        context.SaveChanges();
+                        FillGenresList();
+                        var genreItems = lvGenres.Items;
+                        foreach (var checkedGenre in Genres.ToList())
+                        {
+                            foreach (var item in genreItems)
                             {
-                                (item as ListViewItem).Checked = true;
+                                genre genreItem = (genre)(item as ListViewItem).Tag;
+                                if (genreItem.id == checkedGenre.id)
+                                {
+                                    (item as ListViewItem).Checked = true;
+                                }
                             }
                         }
+                        MoviesUcl.Instance.RefreshTableAndFilters();
+                        ActorsUcl.Instance.RefreshTableAndFilters();
+                        DirectorsUcl.Instance.RefreshTableAndFilters();
+                        MessageBox.Show("Genre successfully added.", "Success", MessageBoxButtons.OK);
                     }
-                    // Change content of all genre list views
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.StackTrace);
                 }
             }
         }
@@ -647,30 +829,51 @@ namespace HCI_Movies
             AddLanguageForm addLanguageForm = new AddLanguageForm();
             if (DialogResult.OK == addLanguageForm.ShowDialog())
             {
-                using (MovieDB context = new MovieDB())
+                try
                 {
-                    var language = new language()
+                    using (MovieDB context = new MovieDB())
                     {
-                        name = addLanguageForm.LanguageName
-                    };
-                    context.languages.Add(language);
-                    context.SaveChanges();
-                    FillLanguagesList();
-                    var languageItems = lvLanguages.Items;
-                    foreach (var checkedLanguage in checkedLanguages.ToList())
-                    {
-                        foreach (var item in languageItems)
+                        var language = new language()
                         {
-                            language languageItem = (language)(item as ListViewItem).Tag;
-                            if (languageItem.id == checkedLanguage.id)
+                            name = addLanguageForm.LanguageName,
+                            active = 1
+                        };
+                        context.languages.Add(language);
+                        context.SaveChanges();
+                        FillLanguagesList();
+                        var languageItems = lvLanguages.Items;
+                        foreach (var checkedLanguage in Languages.ToList())
+                        {
+                            foreach (var item in languageItems)
                             {
-                                (item as ListViewItem).Checked = true;
+                                language languageItem = (language)(item as ListViewItem).Tag;
+                                if (languageItem.id == checkedLanguage.id)
+                                {
+                                    (item as ListViewItem).Checked = true;
+                                }
                             }
                         }
+                        MoviesUcl.Instance.RefreshTableAndFilters();
+                        ActorsUcl.Instance.RefreshTableAndFilters();
+                        DirectorsUcl.Instance.RefreshTableAndFilters();
+                        MessageBox.Show("Language successfully added.", "Success", MessageBoxButtons.OK);
                     }
-                    // Change content of all language list views
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.StackTrace);
                 }
             }
+        }
+
+        private void tbBudget_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            AllowDecimal(sender, e);
+        }
+
+        private void tbGross_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            AllowDecimal(sender, e);
         }
     }
 }

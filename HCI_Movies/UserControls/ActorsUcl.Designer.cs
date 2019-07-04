@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlFilter = new System.Windows.Forms.Panel();
             this.tbLastName = new System.Windows.Forms.TextBox();
             this.lblLastName = new System.Windows.Forms.Label();
@@ -46,6 +46,7 @@
             this.lblYearOfBirth = new System.Windows.Forms.Label();
             this.cmbYearOfBirth = new System.Windows.Forms.ComboBox();
             this.pnlData = new System.Windows.Forms.Panel();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDetails = new System.Windows.Forms.Button();
@@ -85,7 +86,7 @@
             this.pnlFilter.Name = "pnlFilter";
             this.pnlFilter.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.pnlFilter.Size = new System.Drawing.Size(220, 570);
-            this.pnlFilter.TabIndex = 3;
+            this.pnlFilter.TabIndex = 0;
             // 
             // tbLastName
             // 
@@ -93,7 +94,7 @@
             this.tbLastName.Location = new System.Drawing.Point(10, 80);
             this.tbLastName.Name = "tbLastName";
             this.tbLastName.Size = new System.Drawing.Size(180, 26);
-            this.tbLastName.TabIndex = 10;
+            this.tbLastName.TabIndex = 2;
             this.tbLastName.TextChanged += new System.EventHandler(this.tbLastName_TextChanged);
             // 
             // lblLastName
@@ -112,7 +113,7 @@
             this.tbMaxMovies.Location = new System.Drawing.Point(10, 330);
             this.tbMaxMovies.Name = "tbMaxMovies";
             this.tbMaxMovies.Size = new System.Drawing.Size(180, 26);
-            this.tbMaxMovies.TabIndex = 4;
+            this.tbMaxMovies.TabIndex = 7;
             this.tbMaxMovies.TextChanged += new System.EventHandler(this.tbMaxMovies_TextChanged);
             this.tbMaxMovies.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbMaxMovies_KeyPress);
             // 
@@ -122,7 +123,7 @@
             this.tbMinMovies.Location = new System.Drawing.Point(10, 280);
             this.tbMinMovies.Name = "tbMinMovies";
             this.tbMinMovies.Size = new System.Drawing.Size(180, 26);
-            this.tbMinMovies.TabIndex = 4;
+            this.tbMinMovies.TabIndex = 6;
             this.tbMinMovies.TextChanged += new System.EventHandler(this.tbMinMovies_TextChanged);
             this.tbMinMovies.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbMinMovies_KeyPress);
             // 
@@ -133,7 +134,7 @@
             this.lblMinMovies.Location = new System.Drawing.Point(10, 260);
             this.lblMinMovies.Name = "lblMinMovies";
             this.lblMinMovies.Size = new System.Drawing.Size(84, 18);
-            this.lblMinMovies.TabIndex = 4;
+            this.lblMinMovies.TabIndex = 0;
             this.lblMinMovies.Text = "Min movies";
             // 
             // lblMaxMovies
@@ -143,7 +144,7 @@
             this.lblMaxMovies.Location = new System.Drawing.Point(10, 310);
             this.lblMaxMovies.Name = "lblMaxMovies";
             this.lblMaxMovies.Size = new System.Drawing.Size(88, 18);
-            this.lblMaxMovies.TabIndex = 5;
+            this.lblMaxMovies.TabIndex = 0;
             this.lblMaxMovies.Text = "Max movies";
             // 
             // lblBirthplace
@@ -153,7 +154,7 @@
             this.lblBirthplace.Location = new System.Drawing.Point(10, 210);
             this.lblBirthplace.Name = "lblBirthplace";
             this.lblBirthplace.Size = new System.Drawing.Size(73, 18);
-            this.lblBirthplace.TabIndex = 8;
+            this.lblBirthplace.TabIndex = 0;
             this.lblBirthplace.Text = "Birthplace";
             // 
             // cmbYearOfDeath
@@ -163,7 +164,7 @@
             this.cmbYearOfDeath.Location = new System.Drawing.Point(10, 180);
             this.cmbYearOfDeath.Name = "cmbYearOfDeath";
             this.cmbYearOfDeath.Size = new System.Drawing.Size(180, 28);
-            this.cmbYearOfDeath.TabIndex = 7;
+            this.cmbYearOfDeath.TabIndex = 4;
             this.cmbYearOfDeath.SelectedIndexChanged += new System.EventHandler(this.cmbYearOfDeath_SelectedIndexChanged);
             // 
             // tbBirthplace
@@ -172,7 +173,7 @@
             this.tbBirthplace.Location = new System.Drawing.Point(10, 230);
             this.tbBirthplace.Name = "tbBirthplace";
             this.tbBirthplace.Size = new System.Drawing.Size(180, 26);
-            this.tbBirthplace.TabIndex = 6;
+            this.tbBirthplace.TabIndex = 5;
             this.tbBirthplace.TextChanged += new System.EventHandler(this.tbBirthplace_TextChanged);
             // 
             // lblYearOfDeath
@@ -182,7 +183,7 @@
             this.lblYearOfDeath.Location = new System.Drawing.Point(10, 160);
             this.lblYearOfDeath.Name = "lblYearOfDeath";
             this.lblYearOfDeath.Size = new System.Drawing.Size(95, 18);
-            this.lblYearOfDeath.TabIndex = 5;
+            this.lblYearOfDeath.TabIndex = 0;
             this.lblYearOfDeath.Text = "Year of death";
             // 
             // lblFirstName
@@ -194,7 +195,7 @@
             this.lblFirstName.Name = "lblFirstName";
             this.lblFirstName.Size = new System.Drawing.Size(78, 18);
             this.lblFirstName.TabIndex = 0;
-            this.lblFirstName.Text = "Frist name";
+            this.lblFirstName.Text = "First name";
             // 
             // tbFirstName
             // 
@@ -225,7 +226,7 @@
             this.cmbYearOfBirth.Location = new System.Drawing.Point(10, 130);
             this.cmbYearOfBirth.Name = "cmbYearOfBirth";
             this.cmbYearOfBirth.Size = new System.Drawing.Size(180, 28);
-            this.cmbYearOfBirth.TabIndex = 2;
+            this.cmbYearOfBirth.TabIndex = 3;
             this.cmbYearOfBirth.SelectedIndexChanged += new System.EventHandler(this.cmbYearOfBirth_SelectedIndexChanged);
             // 
             // pnlData
@@ -235,6 +236,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlData.BackColor = System.Drawing.Color.White;
             this.pnlData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlData.Controls.Add(this.btnDelete);
             this.pnlData.Controls.Add(this.btnEdit);
             this.pnlData.Controls.Add(this.btnAdd);
             this.pnlData.Controls.Add(this.btnDetails);
@@ -242,7 +244,22 @@
             this.pnlData.Location = new System.Drawing.Point(220, 0);
             this.pnlData.Name = "pnlData";
             this.pnlData.Size = new System.Drawing.Size(798, 570);
-            this.pnlData.TabIndex = 4;
+            this.pnlData.TabIndex = 1;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.Location = new System.Drawing.Point(654, 528);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(100, 30);
+            this.btnDelete.TabIndex = 4;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Visible = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEdit
             // 
@@ -251,12 +268,13 @@
             this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEdit.ForeColor = System.Drawing.Color.Black;
-            this.btnEdit.Location = new System.Drawing.Point(442, 528);
+            this.btnEdit.Location = new System.Drawing.Point(548, 528);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(100, 30);
             this.btnEdit.TabIndex = 3;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Visible = false;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
@@ -265,12 +283,13 @@
             this.btnAdd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(548, 528);
+            this.btnAdd.Location = new System.Drawing.Point(442, 528);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(100, 30);
             this.btnAdd.TabIndex = 2;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Visible = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnDetails
@@ -286,6 +305,7 @@
             this.btnDetails.TabIndex = 1;
             this.btnDetails.Text = "Details";
             this.btnDetails.UseVisualStyleBackColor = true;
+            this.btnDetails.Click += new System.EventHandler(this.btnDetails_Click);
             // 
             // dgvActors
             // 
@@ -298,14 +318,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvActors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvActors.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvActors.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvActors.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvActors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvActors.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -318,11 +338,12 @@
             this.dgvActors.Name = "dgvActors";
             this.dgvActors.ReadOnly = true;
             this.dgvActors.RowHeadersVisible = false;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgvActors.RowsDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgvActors.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvActors.Size = new System.Drawing.Size(744, 512);
             this.dgvActors.TabIndex = 0;
+            this.dgvActors.TabStop = false;
             // 
             // Column1
             // 
@@ -399,5 +420,6 @@
         private System.Windows.Forms.TextBox tbMaxMovies;
         private System.Windows.Forms.Label lblLastName;
         private System.Windows.Forms.TextBox tbLastName;
+        private System.Windows.Forms.Button btnDelete;
     }
 }

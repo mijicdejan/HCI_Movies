@@ -81,7 +81,7 @@
             this.lblName.Location = new System.Drawing.Point(320, 30);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(48, 18);
-            this.lblName.TabIndex = 1;
+            this.lblName.TabIndex = 0;
             this.lblName.Text = "Name";
             // 
             // lblReleaseDate
@@ -91,7 +91,7 @@
             this.lblReleaseDate.Location = new System.Drawing.Point(320, 85);
             this.lblReleaseDate.Name = "lblReleaseDate";
             this.lblReleaseDate.Size = new System.Drawing.Size(94, 18);
-            this.lblReleaseDate.TabIndex = 2;
+            this.lblReleaseDate.TabIndex = 0;
             this.lblReleaseDate.Text = "Release date";
             // 
             // lblRuntime
@@ -101,7 +101,7 @@
             this.lblRuntime.Location = new System.Drawing.Point(320, 140);
             this.lblRuntime.Name = "lblRuntime";
             this.lblRuntime.Size = new System.Drawing.Size(63, 18);
-            this.lblRuntime.TabIndex = 3;
+            this.lblRuntime.TabIndex = 0;
             this.lblRuntime.Text = "Runtime";
             // 
             // lblBudget
@@ -111,7 +111,7 @@
             this.lblBudget.Location = new System.Drawing.Point(320, 195);
             this.lblBudget.Name = "lblBudget";
             this.lblBudget.Size = new System.Drawing.Size(54, 18);
-            this.lblBudget.TabIndex = 4;
+            this.lblBudget.TabIndex = 0;
             this.lblBudget.Text = "Budget";
             // 
             // lblGross
@@ -121,7 +121,7 @@
             this.lblGross.Location = new System.Drawing.Point(320, 250);
             this.lblGross.Name = "lblGross";
             this.lblGross.Size = new System.Drawing.Size(50, 18);
-            this.lblGross.TabIndex = 5;
+            this.lblGross.TabIndex = 0;
             this.lblGross.Text = "Gross";
             // 
             // lblTagline
@@ -131,7 +131,7 @@
             this.lblTagline.Location = new System.Drawing.Point(320, 305);
             this.lblTagline.Name = "lblTagline";
             this.lblTagline.Size = new System.Drawing.Size(55, 18);
-            this.lblTagline.TabIndex = 6;
+            this.lblTagline.TabIndex = 0;
             this.lblTagline.Text = "Tagline";
             // 
             // lblPlotSummary
@@ -141,7 +141,7 @@
             this.lblPlotSummary.Location = new System.Drawing.Point(40, 420);
             this.lblPlotSummary.Name = "lblPlotSummary";
             this.lblPlotSummary.Size = new System.Drawing.Size(100, 18);
-            this.lblPlotSummary.TabIndex = 7;
+            this.lblPlotSummary.TabIndex = 0;
             this.lblPlotSummary.Text = "Plot summary";
             // 
             // tbName
@@ -150,7 +150,7 @@
             this.tbName.Location = new System.Drawing.Point(320, 50);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(180, 22);
-            this.tbName.TabIndex = 8;
+            this.tbName.TabIndex = 1;
             // 
             // tbRuntime
             // 
@@ -158,7 +158,7 @@
             this.tbRuntime.Location = new System.Drawing.Point(320, 160);
             this.tbRuntime.Name = "tbRuntime";
             this.tbRuntime.Size = new System.Drawing.Size(180, 22);
-            this.tbRuntime.TabIndex = 10;
+            this.tbRuntime.TabIndex = 3;
             // 
             // tbBudget
             // 
@@ -166,7 +166,8 @@
             this.tbBudget.Location = new System.Drawing.Point(320, 215);
             this.tbBudget.Name = "tbBudget";
             this.tbBudget.Size = new System.Drawing.Size(180, 22);
-            this.tbBudget.TabIndex = 11;
+            this.tbBudget.TabIndex = 4;
+            this.tbBudget.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbBudget_KeyPress);
             // 
             // tbGross
             // 
@@ -174,7 +175,8 @@
             this.tbGross.Location = new System.Drawing.Point(320, 270);
             this.tbGross.Name = "tbGross";
             this.tbGross.Size = new System.Drawing.Size(180, 22);
-            this.tbGross.TabIndex = 12;
+            this.tbGross.TabIndex = 5;
+            this.tbGross.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbGross_KeyPress);
             // 
             // tbTagline
             // 
@@ -182,7 +184,7 @@
             this.tbTagline.Location = new System.Drawing.Point(320, 325);
             this.tbTagline.Name = "tbTagline";
             this.tbTagline.Size = new System.Drawing.Size(180, 22);
-            this.tbTagline.TabIndex = 13;
+            this.tbTagline.TabIndex = 6;
             // 
             // btnPoster
             // 
@@ -192,7 +194,7 @@
             this.btnPoster.Location = new System.Drawing.Point(110, 355);
             this.btnPoster.Name = "btnPoster";
             this.btnPoster.Size = new System.Drawing.Size(110, 30);
-            this.btnPoster.TabIndex = 14;
+            this.btnPoster.TabIndex = 7;
             this.btnPoster.Text = "Poster";
             this.btnPoster.UseVisualStyleBackColor = true;
             this.btnPoster.Click += new System.EventHandler(this.btnPoster_Click);
@@ -202,7 +204,7 @@
             this.rtbPlotSummary.Location = new System.Drawing.Point(40, 440);
             this.rtbPlotSummary.Name = "rtbPlotSummary";
             this.rtbPlotSummary.Size = new System.Drawing.Size(460, 170);
-            this.rtbPlotSummary.TabIndex = 15;
+            this.rtbPlotSummary.TabIndex = 8;
             this.rtbPlotSummary.Text = "";
             // 
             // lblActors
@@ -212,7 +214,7 @@
             this.lblActors.Location = new System.Drawing.Point(740, 30);
             this.lblActors.Name = "lblActors";
             this.lblActors.Size = new System.Drawing.Size(51, 18);
-            this.lblActors.TabIndex = 16;
+            this.lblActors.TabIndex = 0;
             this.lblActors.Text = "Actors";
             // 
             // lblDirectors
@@ -222,7 +224,7 @@
             this.lblDirectors.Location = new System.Drawing.Point(740, 325);
             this.lblDirectors.Name = "lblDirectors";
             this.lblDirectors.Size = new System.Drawing.Size(69, 18);
-            this.lblDirectors.TabIndex = 17;
+            this.lblDirectors.TabIndex = 0;
             this.lblDirectors.Text = "Directors";
             // 
             // tbActors
@@ -231,7 +233,7 @@
             this.tbActors.Location = new System.Drawing.Point(740, 50);
             this.tbActors.Name = "tbActors";
             this.tbActors.Size = new System.Drawing.Size(180, 22);
-            this.tbActors.TabIndex = 18;
+            this.tbActors.TabIndex = 15;
             this.tbActors.TextChanged += new System.EventHandler(this.tbActors_TextChanged);
             // 
             // tbDirectors
@@ -240,7 +242,7 @@
             this.tbDirectors.Location = new System.Drawing.Point(740, 345);
             this.tbDirectors.Name = "tbDirectors";
             this.tbDirectors.Size = new System.Drawing.Size(180, 22);
-            this.tbDirectors.TabIndex = 19;
+            this.tbDirectors.TabIndex = 18;
             this.tbDirectors.TextChanged += new System.EventHandler(this.tbDirectors_TextChanged);
             // 
             // lvActors
@@ -248,7 +250,7 @@
             this.lvActors.Location = new System.Drawing.Point(740, 75);
             this.lvActors.Name = "lvActors";
             this.lvActors.Size = new System.Drawing.Size(180, 200);
-            this.lvActors.TabIndex = 20;
+            this.lvActors.TabIndex = 16;
             this.lvActors.UseCompatibleStateImageBehavior = false;
             this.lvActors.View = System.Windows.Forms.View.Details;
             this.lvActors.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lvActors_ItemChecked);
@@ -258,7 +260,7 @@
             this.lvDirectors.Location = new System.Drawing.Point(740, 370);
             this.lvDirectors.Name = "lvDirectors";
             this.lvDirectors.Size = new System.Drawing.Size(180, 200);
-            this.lvDirectors.TabIndex = 21;
+            this.lvDirectors.TabIndex = 19;
             this.lvDirectors.UseCompatibleStateImageBehavior = false;
             this.lvDirectors.View = System.Windows.Forms.View.Details;
             this.lvDirectors.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lvDirectors_ItemChecked);
@@ -271,7 +273,7 @@
             this.btnSave.Location = new System.Drawing.Point(810, 620);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(110, 30);
-            this.btnSave.TabIndex = 22;
+            this.btnSave.TabIndex = 21;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -284,7 +286,7 @@
             this.btnAddDirector.Location = new System.Drawing.Point(810, 580);
             this.btnAddDirector.Name = "btnAddDirector";
             this.btnAddDirector.Size = new System.Drawing.Size(110, 30);
-            this.btnAddDirector.TabIndex = 23;
+            this.btnAddDirector.TabIndex = 20;
             this.btnAddDirector.Text = "Add director";
             this.btnAddDirector.UseVisualStyleBackColor = true;
             this.btnAddDirector.Click += new System.EventHandler(this.btnAddDirector_Click);
@@ -297,7 +299,7 @@
             this.btnAddActor.Location = new System.Drawing.Point(810, 285);
             this.btnAddActor.Name = "btnAddActor";
             this.btnAddActor.Size = new System.Drawing.Size(110, 30);
-            this.btnAddActor.TabIndex = 24;
+            this.btnAddActor.TabIndex = 17;
             this.btnAddActor.Text = "Add actor";
             this.btnAddActor.UseVisualStyleBackColor = true;
             this.btnAddActor.Click += new System.EventHandler(this.btnAddActor_Click);
@@ -309,7 +311,7 @@
             this.dtpReleaseDate.Location = new System.Drawing.Point(320, 105);
             this.dtpReleaseDate.Name = "dtpReleaseDate";
             this.dtpReleaseDate.Size = new System.Drawing.Size(180, 22);
-            this.dtpReleaseDate.TabIndex = 25;
+            this.dtpReleaseDate.TabIndex = 2;
             // 
             // lblGenres
             // 
@@ -318,7 +320,7 @@
             this.lblGenres.Location = new System.Drawing.Point(530, 30);
             this.lblGenres.Name = "lblGenres";
             this.lblGenres.Size = new System.Drawing.Size(57, 18);
-            this.lblGenres.TabIndex = 26;
+            this.lblGenres.TabIndex = 0;
             this.lblGenres.Text = "Genres";
             // 
             // lvGenres
@@ -326,7 +328,7 @@
             this.lvGenres.Location = new System.Drawing.Point(530, 75);
             this.lvGenres.Name = "lvGenres";
             this.lvGenres.Size = new System.Drawing.Size(180, 200);
-            this.lvGenres.TabIndex = 27;
+            this.lvGenres.TabIndex = 10;
             this.lvGenres.UseCompatibleStateImageBehavior = false;
             this.lvGenres.View = System.Windows.Forms.View.Details;
             this.lvGenres.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lvGenres_ItemChecked);
@@ -338,7 +340,7 @@
             this.lblLanguages.Location = new System.Drawing.Point(530, 325);
             this.lblLanguages.Name = "lblLanguages";
             this.lblLanguages.Size = new System.Drawing.Size(80, 18);
-            this.lblLanguages.TabIndex = 28;
+            this.lblLanguages.TabIndex = 0;
             this.lblLanguages.Text = "Languages";
             // 
             // tbLanguages
@@ -347,7 +349,7 @@
             this.tbLanguages.Location = new System.Drawing.Point(530, 345);
             this.tbLanguages.Name = "tbLanguages";
             this.tbLanguages.Size = new System.Drawing.Size(180, 22);
-            this.tbLanguages.TabIndex = 29;
+            this.tbLanguages.TabIndex = 12;
             this.tbLanguages.TextChanged += new System.EventHandler(this.tbLanguages_TextChanged);
             // 
             // tbGenres
@@ -356,7 +358,7 @@
             this.tbGenres.Location = new System.Drawing.Point(530, 50);
             this.tbGenres.Name = "tbGenres";
             this.tbGenres.Size = new System.Drawing.Size(180, 22);
-            this.tbGenres.TabIndex = 30;
+            this.tbGenres.TabIndex = 9;
             this.tbGenres.TextChanged += new System.EventHandler(this.tbGenres_TextChanged);
             // 
             // lvLanguages
@@ -364,7 +366,7 @@
             this.lvLanguages.Location = new System.Drawing.Point(530, 370);
             this.lvLanguages.Name = "lvLanguages";
             this.lvLanguages.Size = new System.Drawing.Size(180, 200);
-            this.lvLanguages.TabIndex = 31;
+            this.lvLanguages.TabIndex = 13;
             this.lvLanguages.UseCompatibleStateImageBehavior = false;
             this.lvLanguages.View = System.Windows.Forms.View.Details;
             this.lvLanguages.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lvLanguages_ItemChecked);
@@ -377,7 +379,7 @@
             this.btnAddGenre.Location = new System.Drawing.Point(600, 285);
             this.btnAddGenre.Name = "btnAddGenre";
             this.btnAddGenre.Size = new System.Drawing.Size(110, 30);
-            this.btnAddGenre.TabIndex = 32;
+            this.btnAddGenre.TabIndex = 11;
             this.btnAddGenre.Text = "Add genre";
             this.btnAddGenre.UseVisualStyleBackColor = true;
             this.btnAddGenre.Click += new System.EventHandler(this.btnAddGenre_Click);
@@ -390,7 +392,7 @@
             this.btnAddLanguage.Location = new System.Drawing.Point(600, 580);
             this.btnAddLanguage.Name = "btnAddLanguage";
             this.btnAddLanguage.Size = new System.Drawing.Size(110, 30);
-            this.btnAddLanguage.TabIndex = 33;
+            this.btnAddLanguage.TabIndex = 14;
             this.btnAddLanguage.Text = "Add language";
             this.btnAddLanguage.UseVisualStyleBackColor = true;
             this.btnAddLanguage.Click += new System.EventHandler(this.btnAddLanguage_Click);
@@ -435,9 +437,11 @@
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.pbPoster);
             this.ForeColor = System.Drawing.Color.Black;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddMovieForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Add movie";
+            this.Text = "Movie";
             this.Load += new System.EventHandler(this.AddMovieForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbPoster)).EndInit();
             this.ResumeLayout(false);

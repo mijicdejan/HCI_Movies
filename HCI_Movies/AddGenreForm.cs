@@ -28,7 +28,7 @@ namespace HCI_Movies
             }
             else
             {
-                MessageBox.Show("You have to enter genre name.");
+                MessageBox.Show("You have to enter genre name.", "Warning", MessageBoxButtons.OK);
             }
         }
     }

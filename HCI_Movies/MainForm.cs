@@ -42,62 +42,93 @@ namespace HCI_Movies
         {
             string username = tbUsername.Text;
             string password = tbPassword.Text;
-            if(ValidateChildren(ValidationConstraints.Enabled))
+            if("".Equals(username))
             {
-                using(MovieDB context = new MovieDB())
+                MessageBox.Show("You have to enter username.", "Warning", MessageBoxButtons.OK);
+            }
+            else if("".Equals(password))
+            {
+                MessageBox.Show("You have to enter password.", "Warning", MessageBoxButtons.OK);
+            }
+            else
+            {
+                try
                 {
-                    var users = (from c in context.users
-                                where username.Equals(c.username) &&
-                                password.Equals(c.password_hash)
-                                select c).ToList();
-                    if(users.Count == 1)
+                    using (MovieDB context = new MovieDB())
                     {
-                        btnLogIn.Hide();
-                        btnLogOut.Show();
+                        var users = (from c in context.users
+                                     where username.Equals(c.username) &&
+                                     c.active == 1
+                                     select c).ToList();
+                        if (users.Count == 1)
+                        {
+                            var user = users[0];
+                            string salt = user.salt;
+                            string hash = UserService.GetPasswordHash(salt, password);
+                            if (hash.Equals(user.password_hash))
+                            {
+                                btnLogIn.Hide();
+                                btnLogOut.Show();
+                                lblUsername.Hide();
+                                tbUsername.Hide();
+                                lblPassword.Hide();
+                                tbPassword.Hide();
+                                lblLoggedInUsername.Text = username;
+                                lblLoggedInUsername.Show();
+                                MoviesUcl.Instance.LoggedIn();
+                                ActorsUcl.Instance.LoggedIn();
+                                DirectorsUcl.Instance.LoggedIn();
+                            }
+                            else
+                            {
+                                tbUsername.Clear();
+                                tbPassword.Clear();
+                                MessageBox.Show("Incorrect username or password.", "Warning", MessageBoxButtons.OK);
+                            }
+                        }
+                        else
+                        {
+                            tbUsername.Clear();
+                            tbPassword.Clear();
+                            MessageBox.Show("Incorrect username or password.", "Warning", MessageBoxButtons.OK);
+                        }
                     }
-                    else
-                    {
-                        tbUsername.Clear();
-                        tbPassword.Clear();
-                        errorProvider.SetError(tbUsername, "Ne postoji uneseno korisničko ime.");
-                        errorProvider.SetError(tbPassword, "Ne postoji uneseno korisničko ime.");
-                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.StackTrace);
                 }
             }
         }
 
-        private void tbUsername_Validating(object sender, CancelEventArgs e)
+        private void btnLogOut_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(tbUsername.Text))
-            {
-                e.Cancel = true;
-                errorProvider.SetError(tbUsername, "Niste unijeli korisničko ime.");
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProvider.SetError(tbUsername, null);
-            }
-        }
-
-        private void tbPassword_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(tbPassword.Text))
-            {
-                e.Cancel = true;
-                errorProvider.SetError(tbPassword, "Niste unijeli lozinku.");
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProvider.SetError(tbPassword, null);
-            }
+            btnLogIn.Show();
+            btnLogOut.Hide();
+            lblUsername.Show();
+            tbUsername.Clear();
+            tbUsername.Show();
+            lblPassword.Show();
+            tbPassword.Clear();
+            tbPassword.Show();
+            lblLoggedInUsername.Hide();
+            MoviesUcl.Instance.LoggedOut();
+            ActorsUcl.Instance.LoggedOut();
+            DirectorsUcl.Instance.LoggedOut();
         }
 
         private void btnMovies_Click(object sender, EventArgs e)
         {
             if (!pnlUserControl.Controls.Contains(MoviesUcl.Instance))
             {
+                if (pnlUserControl.Controls.Contains(ActorsUcl.Instance))
+                {
+                    pnlUserControl.Controls.Remove(ActorsUcl.Instance);
+                }
+                else if (pnlUserControl.Controls.Contains(DirectorsUcl.Instance))
+                {
+                    pnlUserControl.Controls.Remove(DirectorsUcl.Instance);
+                }
                 pnlUserControl.Controls.Add(MoviesUcl.Instance);
                 MoviesUcl.Instance.Dock = DockStyle.Fill;
                 MoviesUcl.Instance.BringToFront();
@@ -115,6 +146,14 @@ namespace HCI_Movies
         {
             if (!pnlUserControl.Controls.Contains(ActorsUcl.Instance))
             {
+                if (pnlUserControl.Controls.Contains(MoviesUcl.Instance))
+                {
+                    pnlUserControl.Controls.Remove(MoviesUcl.Instance);
+                }
+                else if (pnlUserControl.Controls.Contains(DirectorsUcl.Instance))
+                {
+                    pnlUserControl.Controls.Remove(DirectorsUcl.Instance);
+                }
                 pnlUserControl.Controls.Add(ActorsUcl.Instance);
                 ActorsUcl.Instance.Dock = DockStyle.Fill;
                 ActorsUcl.Instance.BringToFront();
@@ -132,6 +171,14 @@ namespace HCI_Movies
         {
             if (!pnlUserControl.Controls.Contains(DirectorsUcl.Instance))
             {
+                if (pnlUserControl.Controls.Contains(ActorsUcl.Instance))
+                {
+                    pnlUserControl.Controls.Remove(ActorsUcl.Instance);
+                }
+                else if (pnlUserControl.Controls.Contains(MoviesUcl.Instance))
+                {
+                    pnlUserControl.Controls.Remove(MoviesUcl.Instance);
+                }
                 pnlUserControl.Controls.Add(DirectorsUcl.Instance);
                 DirectorsUcl.Instance.Dock = DockStyle.Fill;
                 DirectorsUcl.Instance.BringToFront();

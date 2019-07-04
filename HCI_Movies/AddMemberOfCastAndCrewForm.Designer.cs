@@ -66,7 +66,7 @@
             this.lblFirstName.Location = new System.Drawing.Point(330, 30);
             this.lblFirstName.Name = "lblFirstName";
             this.lblFirstName.Size = new System.Drawing.Size(78, 18);
-            this.lblFirstName.TabIndex = 2;
+            this.lblFirstName.TabIndex = 0;
             this.lblFirstName.Text = "First name";
             // 
             // lblLastName
@@ -76,7 +76,7 @@
             this.lblLastName.Location = new System.Drawing.Point(330, 85);
             this.lblLastName.Name = "lblLastName";
             this.lblLastName.Size = new System.Drawing.Size(77, 18);
-            this.lblLastName.TabIndex = 3;
+            this.lblLastName.TabIndex = 0;
             this.lblLastName.Text = "Last name";
             // 
             // lblBorn
@@ -86,7 +86,7 @@
             this.lblBorn.Location = new System.Drawing.Point(330, 195);
             this.lblBorn.Name = "lblBorn";
             this.lblBorn.Size = new System.Drawing.Size(40, 18);
-            this.lblBorn.TabIndex = 4;
+            this.lblBorn.TabIndex = 0;
             this.lblBorn.Text = "Born";
             // 
             // lblDied
@@ -96,7 +96,7 @@
             this.lblDied.Location = new System.Drawing.Point(330, 250);
             this.lblDied.Name = "lblDied";
             this.lblDied.Size = new System.Drawing.Size(38, 18);
-            this.lblDied.TabIndex = 5;
+            this.lblDied.TabIndex = 0;
             this.lblDied.Text = "Died";
             // 
             // lblBio
@@ -106,7 +106,7 @@
             this.lblBio.Location = new System.Drawing.Point(90, 375);
             this.lblBio.Name = "lblBio";
             this.lblBio.Size = new System.Drawing.Size(30, 18);
-            this.lblBio.TabIndex = 6;
+            this.lblBio.TabIndex = 0;
             this.lblBio.Text = "Bio";
             // 
             // tbFirstName
@@ -115,7 +115,7 @@
             this.tbFirstName.Location = new System.Drawing.Point(330, 50);
             this.tbFirstName.Name = "tbFirstName";
             this.tbFirstName.Size = new System.Drawing.Size(180, 22);
-            this.tbFirstName.TabIndex = 7;
+            this.tbFirstName.TabIndex = 1;
             // 
             // tbLastName
             // 
@@ -123,7 +123,7 @@
             this.tbLastName.Location = new System.Drawing.Point(330, 105);
             this.tbLastName.Name = "tbLastName";
             this.tbLastName.Size = new System.Drawing.Size(180, 22);
-            this.tbLastName.TabIndex = 8;
+            this.tbLastName.TabIndex = 2;
             // 
             // dtpBorn
             // 
@@ -132,7 +132,7 @@
             this.dtpBorn.Location = new System.Drawing.Point(330, 215);
             this.dtpBorn.Name = "dtpBorn";
             this.dtpBorn.Size = new System.Drawing.Size(180, 22);
-            this.dtpBorn.TabIndex = 9;
+            this.dtpBorn.TabIndex = 4;
             // 
             // dtpDied
             // 
@@ -141,7 +141,7 @@
             this.dtpDied.Location = new System.Drawing.Point(330, 270);
             this.dtpDied.Name = "dtpDied";
             this.dtpDied.Size = new System.Drawing.Size(180, 22);
-            this.dtpDied.TabIndex = 10;
+            this.dtpDied.TabIndex = 6;
             // 
             // cbDied
             // 
@@ -149,7 +149,7 @@
             this.cbDied.Location = new System.Drawing.Point(375, 253);
             this.cbDied.Name = "cbDied";
             this.cbDied.Size = new System.Drawing.Size(15, 14);
-            this.cbDied.TabIndex = 11;
+            this.cbDied.TabIndex = 5;
             this.cbDied.UseVisualStyleBackColor = true;
             this.cbDied.CheckedChanged += new System.EventHandler(this.cbDied_CheckedChanged);
             // 
@@ -160,7 +160,7 @@
             this.cbDoubleMember.Location = new System.Drawing.Point(330, 305);
             this.cbDoubleMember.Name = "cbDoubleMember";
             this.cbDoubleMember.Size = new System.Drawing.Size(64, 22);
-            this.cbDoubleMember.TabIndex = 12;
+            this.cbDoubleMember.TabIndex = 7;
             this.cbDoubleMember.Text = "Also?";
             this.cbDoubleMember.UseVisualStyleBackColor = true;
             this.cbDoubleMember.CheckedChanged += new System.EventHandler(this.cbDoubleMember_CheckedChanged);
@@ -173,7 +173,7 @@
             this.btnImage.Location = new System.Drawing.Point(150, 335);
             this.btnImage.Name = "btnImage";
             this.btnImage.Size = new System.Drawing.Size(100, 30);
-            this.btnImage.TabIndex = 13;
+            this.btnImage.TabIndex = 8;
             this.btnImage.Text = "Image";
             this.btnImage.UseVisualStyleBackColor = true;
             this.btnImage.Click += new System.EventHandler(this.btnImage_Click);
@@ -183,7 +183,7 @@
             this.rtbBio.Location = new System.Drawing.Point(90, 395);
             this.rtbBio.Name = "rtbBio";
             this.rtbBio.Size = new System.Drawing.Size(420, 150);
-            this.rtbBio.TabIndex = 14;
+            this.rtbBio.TabIndex = 9;
             this.rtbBio.Text = "";
             // 
             // btnSave
@@ -194,7 +194,7 @@
             this.btnSave.Location = new System.Drawing.Point(410, 550);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(100, 30);
-            this.btnSave.TabIndex = 15;
+            this.btnSave.TabIndex = 10;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -206,7 +206,7 @@
             this.lblBirthplace.Location = new System.Drawing.Point(330, 140);
             this.lblBirthplace.Name = "lblBirthplace";
             this.lblBirthplace.Size = new System.Drawing.Size(73, 18);
-            this.lblBirthplace.TabIndex = 16;
+            this.lblBirthplace.TabIndex = 0;
             this.lblBirthplace.Text = "Birthplace";
             // 
             // tbBirthplace
@@ -215,7 +215,7 @@
             this.tbBirthplace.Location = new System.Drawing.Point(330, 160);
             this.tbBirthplace.Name = "tbBirthplace";
             this.tbBirthplace.Size = new System.Drawing.Size(180, 22);
-            this.tbBirthplace.TabIndex = 17;
+            this.tbBirthplace.TabIndex = 3;
             // 
             // AddMemberOfCastAndCrewForm
             // 
@@ -241,6 +241,8 @@
             this.Controls.Add(this.lblFirstName);
             this.Controls.Add(this.pbImage);
             this.ForeColor = System.Drawing.Color.Black;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddMemberOfCastAndCrewForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddMemberOfCastAndCrew";

@@ -17,6 +17,7 @@ namespace HCI_Movies
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Birthplace { get; set; }
         public DateTime Born { get; set; }
         public DateTime Died { get; set; }
         public bool Dead { get; set; }
@@ -38,7 +39,7 @@ namespace HCI_Movies
             {
                 cbDoubleMember.Text = "Also an actor?";
             }
-            MemberImage = "C:\\Users\\PC\\Desktop\\HCI\\Images\\defaultPerson.png";
+            MemberImage = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Images\\default.png";
             Born = DateTime.Today;
             Died = DateTime.Today;
             dtpBorn.MaxDate = DateTime.Today;
@@ -52,6 +53,10 @@ namespace HCI_Movies
             {
                 MemberImage = file.FileName;
                 pbImage.Image = Image.FromFile(MemberImage);
+                if(MemberImage.Contains(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName))
+                {
+                    MemberImage = MemberImage.Substring(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName.Length);
+                }
             }
         }
 
@@ -59,20 +64,25 @@ namespace HCI_Movies
         {
             if("".Equals(tbFirstName.Text))
             {
-                MessageBox.Show("You have to enter first name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You have to enter first name.", "Warning", MessageBoxButtons.OK);
             }
             else if("".Equals(tbLastName.Text))
             {
-                MessageBox.Show("You have to enter last name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You have to enter last name.", "Warning", MessageBoxButtons.OK);
+            }
+            else if ("".Equals(tbBirthplace.Text))
+            {
+                MessageBox.Show("You have to enter birthplace.", "Warning", MessageBoxButtons.OK);
             }
             else if ("".Equals(rtbBio.Text))
             {
-                MessageBox.Show("You have to enter bio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You have to enter bio.", "Warning", MessageBoxButtons.OK);
             }
             else
             {
                 FirstName = tbFirstName.Text;
                 LastName = tbLastName.Text;
+                Birthplace = tbBirthplace.Text;
                 Born = dtpBorn.Value.Date;
                 Died = dtpDied.Value.Date;
                 Bio = rtbBio.Text;
@@ -110,6 +120,7 @@ namespace HCI_Movies
         {
             tbFirstName.Text = FirstName;
             tbLastName.Text = LastName;
+            tbBirthplace.Text = Birthplace;
             dtpBorn.Value = Born;
             cbDied.Checked = Dead;
             if(Dead)
@@ -121,13 +132,17 @@ namespace HCI_Movies
             {
                 dtpDied.Enabled = false;
             }
+            if(MemberImage.StartsWith("\\"))
+            {
+                MemberImage = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + MemberImage;
+            }
             try
             {
                 pbImage.Image = Image.FromFile(MemberImage);
             }
             catch(FileNotFoundException ex)
             {
-                pbImage.Image = Image.FromFile("C:\\Users\\PC\\Desktop\\HCI\\Images\\defaultPerson.png");
+                pbImage.Image = Image.FromFile(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Images\\default.png");
             }
             rtbBio.Text = Bio;
             cbDoubleMember.Checked = DoubleMember;

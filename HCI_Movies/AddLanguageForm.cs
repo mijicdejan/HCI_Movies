@@ -28,7 +28,7 @@ namespace HCI_Movies
             }
             else
             {
-                MessageBox.Show("You have to enter language name.");
+                MessageBox.Show("You have to enter language name.", "Warning", MessageBoxButtons.OK);
             }
         }
     }

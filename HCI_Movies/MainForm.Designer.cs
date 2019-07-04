@@ -28,23 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.pnlUser = new System.Windows.Forms.Panel();
             this.tbPassword = new System.Windows.Forms.TextBox();
             this.tbUsername = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.lblUsername = new System.Windows.Forms.Label();
             this.lblLoggedInUsername = new System.Windows.Forms.Label();
             this.btnLogIn = new System.Windows.Forms.Button();
             this.btnLogOut = new System.Windows.Forms.Button();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.btnDirectors = new System.Windows.Forms.Button();
             this.btnActors = new System.Windows.Forms.Button();
             this.btnMovies = new System.Windows.Forms.Button();
             this.pnlUserControl = new System.Windows.Forms.Panel();
             this.pnlUser.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.pnlMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,15 +53,15 @@
             this.pnlUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlUser.Controls.Add(this.tbPassword);
             this.pnlUser.Controls.Add(this.tbUsername);
-            this.pnlUser.Controls.Add(this.label2);
-            this.pnlUser.Controls.Add(this.label1);
+            this.pnlUser.Controls.Add(this.lblPassword);
+            this.pnlUser.Controls.Add(this.lblUsername);
             this.pnlUser.Controls.Add(this.lblLoggedInUsername);
             this.pnlUser.Controls.Add(this.btnLogIn);
             this.pnlUser.Controls.Add(this.btnLogOut);
             this.pnlUser.Location = new System.Drawing.Point(0, 0);
             this.pnlUser.Name = "pnlUser";
             this.pnlUser.Size = new System.Drawing.Size(988, 50);
-            this.pnlUser.TabIndex = 2;
+            this.pnlUser.TabIndex = 0;
             // 
             // tbPassword
             // 
@@ -74,8 +71,7 @@
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.PasswordChar = '*';
             this.tbPassword.Size = new System.Drawing.Size(140, 22);
-            this.tbPassword.TabIndex = 6;
-            this.tbPassword.Validating += new System.ComponentModel.CancelEventHandler(this.tbPassword_Validating);
+            this.tbPassword.TabIndex = 2;
             // 
             // tbUsername
             // 
@@ -84,30 +80,29 @@
             this.tbUsername.Location = new System.Drawing.Point(470, 18);
             this.tbUsername.Name = "tbUsername";
             this.tbUsername.Size = new System.Drawing.Size(140, 22);
-            this.tbUsername.TabIndex = 5;
-            this.tbUsername.Validating += new System.ComponentModel.CancelEventHandler(this.tbUsername_Validating);
+            this.tbUsername.TabIndex = 1;
             // 
-            // label2
+            // lblPassword
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(626, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 18);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "password:";
+            this.lblPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPassword.Location = new System.Drawing.Point(626, 19);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(77, 18);
+            this.lblPassword.TabIndex = 0;
+            this.lblPassword.Text = "password:";
             // 
-            // label1
+            // lblUsername
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(390, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 18);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "username:";
+            this.lblUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.Location = new System.Drawing.Point(390, 19);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(78, 18);
+            this.lblUsername.TabIndex = 0;
+            this.lblUsername.Text = "username:";
             // 
             // lblLoggedInUsername
             // 
@@ -131,7 +126,7 @@
             this.btnLogIn.Location = new System.Drawing.Point(864, 10);
             this.btnLogIn.Name = "btnLogIn";
             this.btnLogIn.Size = new System.Drawing.Size(100, 30);
-            this.btnLogIn.TabIndex = 1;
+            this.btnLogIn.TabIndex = 3;
             this.btnLogIn.Text = "Log in";
             this.btnLogIn.UseVisualStyleBackColor = true;
             this.btnLogIn.Click += new System.EventHandler(this.btnLogIn_Click);
@@ -150,11 +145,7 @@
             this.btnLogOut.Text = "Log out";
             this.btnLogOut.UseVisualStyleBackColor = true;
             this.btnLogOut.Visible = false;
-            // 
-            // errorProvider
-            // 
-            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.errorProvider.ContainerControl = this;
+            this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
             // pnlMenu
             // 
@@ -167,7 +158,7 @@
             this.pnlMenu.Location = new System.Drawing.Point(0, 50);
             this.pnlMenu.Name = "pnlMenu";
             this.pnlMenu.Size = new System.Drawing.Size(988, 50);
-            this.pnlMenu.TabIndex = 3;
+            this.pnlMenu.TabIndex = 1;
             // 
             // btnDirectors
             // 
@@ -223,7 +214,7 @@
             this.pnlUserControl.Location = new System.Drawing.Point(0, 100);
             this.pnlUserControl.Name = "pnlUserControl";
             this.pnlUserControl.Size = new System.Drawing.Size(1020, 570);
-            this.pnlUserControl.TabIndex = 4;
+            this.pnlUserControl.TabIndex = 2;
             // 
             // MainForm
             // 
@@ -234,12 +225,12 @@
             this.Controls.Add(this.pnlUserControl);
             this.Controls.Add(this.pnlMenu);
             this.Controls.Add(this.pnlUser);
+            this.MinimumSize = new System.Drawing.Size(1000, 700);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Main";
             this.pnlUser.ResumeLayout(false);
             this.pnlUser.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.pnlMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -253,9 +244,8 @@
         private System.Windows.Forms.Label lblLoggedInUsername;
         private System.Windows.Forms.TextBox tbPassword;
         private System.Windows.Forms.TextBox tbUsername;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Panel pnlMenu;
         private System.Windows.Forms.Button btnActors;
         private System.Windows.Forms.Button btnMovies;

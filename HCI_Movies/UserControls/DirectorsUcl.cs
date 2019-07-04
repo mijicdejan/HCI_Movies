@@ -45,31 +45,42 @@ namespace HCI_Movies.UserControls
 
         private void FillDirectorsTable()
         {
-            dgvDirectors.Rows.Clear();
-            using (MovieDB context = new MovieDB())
+            try
             {
-                var directors = (from c in context.directors orderby c.member_of_cast_and_crew.first_name select c).ToList();
-                directorsByFirstName = directors;
-                directorsByLastName = directors;
-                directorsByYearOfBirth = directors;
-                directorsByYearOfDeath = directors;
-                directorsByBirthplace = directors;
-                directorsByMinMovies = directors;
-                directorsByMaxMovies = directors;
-                foreach (var director in directors)
+                dgvDirectors.Rows.Clear();
+                using (MovieDB context = new MovieDB())
                 {
-                    DataGridViewRow row = new DataGridViewRow()
+                    var directors = (from c in context.directors
+                                     where c.member_of_cast_and_crew.active == 1
+                                     orderby c.member_of_cast_and_crew.first_name
+                                     select c).ToList();
+                    directorsByFirstName = directors;
+                    directorsByLastName = directors;
+                    directorsByYearOfBirth = directors;
+                    directorsByYearOfDeath = directors;
+                    directorsByBirthplace = directors;
+                    directorsByMinMovies = directors;
+                    directorsByMaxMovies = directors;
+                    foreach (var director in directors)
                     {
-                        Tag = director
-                    };
-                    row.CreateCells(dgvDirectors);
-                    row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
-                        director.member_of_cast_and_crew.born, "", director.member_of_cast_and_crew.died);
-                    dgvDirectors.Rows.Add(row);
+                        DataGridViewRow row = new DataGridViewRow()
+                        {
+                            Tag = director
+                        };
+                        row.CreateCells(dgvDirectors);
+                        row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
+                            director.member_of_cast_and_crew.born, director.member_of_cast_and_crew.birthplace,
+                            director.member_of_cast_and_crew.died);
+                        dgvDirectors.Rows.Add(row);
+                    }
                 }
+                dgvDirectors.Columns["Column3"].DefaultCellStyle.Format = "dd.MM.yyyy";
+                dgvDirectors.Columns["Column4"].DefaultCellStyle.Format = "dd.MM.yyyy";
             }
-            dgvDirectors.Columns["Column3"].DefaultCellStyle.Format = "dd.MM.yyyy";
-            dgvDirectors.Columns["Column4"].DefaultCellStyle.Format = "dd.MM.yyyy";
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
         }
 
         private void FillYearOfBirthComboBox()
@@ -108,6 +119,22 @@ namespace HCI_Movies.UserControls
             }
         }
 
+        public void LoggedIn()
+        {
+            btnAdd.Show();
+            btnEdit.Show();
+            btnDelete.Show();
+            btnDetails.Hide();
+        }
+
+        public void LoggedOut()
+        {
+            btnAdd.Hide();
+            btnEdit.Hide();
+            btnDelete.Hide();
+            btnDetails.Show();
+        }
+
         private List<director> DirectorsIntersect()
         {
             List<director> directors = directorsByFirstName.Intersect(directorsByLastName).ToList();
@@ -121,124 +148,200 @@ namespace HCI_Movies.UserControls
 
         private void tbFirstName_TextChanged(object sender, EventArgs e)
         {
-            string firstName = tbFirstName.Text;
-            using (MovieDB context = new MovieDB())
+            try
             {
-                var directors = (from c in context.directors
-                              where c.member_of_cast_and_crew.first_name.ToLower().StartsWith(firstName.ToLower())
-                              select c).ToList();
-                directorsByFirstName = directors;
-                List<director> filteredDirectors = DirectorsIntersect();
-                dgvDirectors.Rows.Clear();
-                foreach (var director in filteredDirectors)
+                string firstName = tbFirstName.Text;
+                using (MovieDB context = new MovieDB())
                 {
-                    DataGridViewRow row = new DataGridViewRow()
+                    var directors = (from c in context.directors
+                                     where c.member_of_cast_and_crew.first_name.ToLower().StartsWith(firstName.ToLower()) &&
+                                     c.member_of_cast_and_crew.active == 1
+                                     orderby c.member_of_cast_and_crew.first_name
+                                     select c).ToList();
+                    directorsByFirstName = directors;
+                    List<director> filteredDirectors = DirectorsIntersect();
+                    dgvDirectors.Rows.Clear();
+                    foreach (var director in filteredDirectors)
                     {
-                        Tag = director
-                    };
-                    row.CreateCells(dgvDirectors);
-                    row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
-                        director.member_of_cast_and_crew.born, "", director.member_of_cast_and_crew.died);
-                    dgvDirectors.Rows.Add(row);
+                        DataGridViewRow row = new DataGridViewRow()
+                        {
+                            Tag = director
+                        };
+                        row.CreateCells(dgvDirectors);
+                        row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
+                            director.member_of_cast_and_crew.born, director.member_of_cast_and_crew.birthplace,
+                            director.member_of_cast_and_crew.died);
+                        dgvDirectors.Rows.Add(row);
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
             }
         }
 
         private void tbLastName_TextChanged(object sender, EventArgs e)
         {
-            string lastName = tbLastName.Text;
-            using (MovieDB context = new MovieDB())
+            try
             {
-                var directors = (from c in context.directors
-                              where c.member_of_cast_and_crew.last_name.ToLower().StartsWith(lastName.ToLower())
-                              select c).ToList();
-                directorsByLastName = directors;
-                List<director> filteredDirectors = DirectorsIntersect();
-                dgvDirectors.Rows.Clear();
-                foreach (var director in filteredDirectors)
+                string lastName = tbLastName.Text;
+                using (MovieDB context = new MovieDB())
                 {
-                    DataGridViewRow row = new DataGridViewRow()
+                    var directors = (from c in context.directors
+                                     where c.member_of_cast_and_crew.last_name.ToLower().StartsWith(lastName.ToLower()) &&
+                                     c.member_of_cast_and_crew.active == 1
+                                     orderby c.member_of_cast_and_crew.first_name
+                                     select c).ToList();
+                    directorsByLastName = directors;
+                    List<director> filteredDirectors = DirectorsIntersect();
+                    dgvDirectors.Rows.Clear();
+                    foreach (var director in filteredDirectors)
                     {
-                        Tag = director
-                    };
-                    row.CreateCells(dgvDirectors);
-                    row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
-                        director.member_of_cast_and_crew.born, "", director.member_of_cast_and_crew.died);
-                    dgvDirectors.Rows.Add(row);
+                        DataGridViewRow row = new DataGridViewRow()
+                        {
+                            Tag = director
+                        };
+                        row.CreateCells(dgvDirectors);
+                        row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
+                            director.member_of_cast_and_crew.born, director.member_of_cast_and_crew.birthplace,
+                            director.member_of_cast_and_crew.died);
+                        dgvDirectors.Rows.Add(row);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
             }
         }
 
         private void cmbYearOfBirth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Year year = (Year)cmbYearOfBirth.SelectedItem;
-            using (MovieDB context = new MovieDB())
+            try
             {
-                List<director> directors = null;
-                if (year.Value == 0)
+                Year year = (Year)cmbYearOfBirth.SelectedItem;
+                using (MovieDB context = new MovieDB())
                 {
-                    directors = (from c in context.directors select c).ToList();
-                }
-                else
-                {
-                    directors = (from c in context.directors
-                              where c.member_of_cast_and_crew.born.Year.Equals(year.Value)
-                              select c).ToList();
-                }
-                directorsByYearOfBirth = directors;
-                List<director> filteredDirectors = DirectorsIntersect();
-                dgvDirectors.Rows.Clear();
-                foreach (var director in filteredDirectors)
-                {
-                    DataGridViewRow row = new DataGridViewRow()
+                    List<director> directors = null;
+                    if (year.Value == 0)
                     {
-                        Tag = director
-                    };
-                    row.CreateCells(dgvDirectors);
-                    row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
-                        director.member_of_cast_and_crew.born, "", director.member_of_cast_and_crew.died);
-                    dgvDirectors.Rows.Add(row);
+                        directors = (from c in context.directors
+                                     where c.member_of_cast_and_crew.active == 1
+                                     orderby c.member_of_cast_and_crew.first_name
+                                     select c).ToList();
+                    }
+                    else
+                    {
+                        directors = (from c in context.directors
+                                     where c.member_of_cast_and_crew.born.Year.Equals(year.Value) &&
+                                     c.member_of_cast_and_crew.active == 1
+                                     orderby c.member_of_cast_and_crew.first_name
+                                     select c).ToList();
+                    }
+                    directorsByYearOfBirth = directors;
+                    List<director> filteredDirectors = DirectorsIntersect();
+                    dgvDirectors.Rows.Clear();
+                    foreach (var director in filteredDirectors)
+                    {
+                        DataGridViewRow row = new DataGridViewRow()
+                        {
+                            Tag = director
+                        };
+                        row.CreateCells(dgvDirectors);
+                        row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
+                            director.member_of_cast_and_crew.born, director.member_of_cast_and_crew.birthplace,
+                            director.member_of_cast_and_crew.died);
+                        dgvDirectors.Rows.Add(row);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
             }
         }
 
         private void cmbYearOfDeath_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Year year = (Year)cmbYearOfDeath.SelectedItem;
-            using (MovieDB context = new MovieDB())
+            try
             {
-                List<director> directors = null;
-                if (year.Value == 0)
+                Year year = (Year)cmbYearOfDeath.SelectedItem;
+                using (MovieDB context = new MovieDB())
                 {
-                    directors = (from c in context.directors select c).ToList();
-                }
-                else
-                {
-                    directors = (from c in context.directors
-                              where c.member_of_cast_and_crew.died.HasValue &&
-                              c.member_of_cast_and_crew.died.Value.Year.Equals(year.Value)
-                              select c).ToList();
-                }
-                directorsByYearOfDeath = directors;
-                List<director> filteredDirectors = DirectorsIntersect();
-                dgvDirectors.Rows.Clear();
-                foreach (var director in filteredDirectors)
-                {
-                    DataGridViewRow row = new DataGridViewRow()
+                    List<director> directors = null;
+                    if (year.Value == 0)
                     {
-                        Tag = director
-                    };
-                    row.CreateCells(dgvDirectors);
-                    row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
-                        director.member_of_cast_and_crew.born, "", director.member_of_cast_and_crew.died);
-                    dgvDirectors.Rows.Add(row);
+                        directors = (from c in context.directors
+                                     where c.member_of_cast_and_crew.active == 1
+                                     orderby c.member_of_cast_and_crew.first_name
+                                     select c).ToList();
+                    }
+                    else
+                    {
+                        directors = (from c in context.directors
+                                     where c.member_of_cast_and_crew.died.HasValue &&
+                                     c.member_of_cast_and_crew.died.Value.Year.Equals(year.Value) &&
+                                     c.member_of_cast_and_crew.active == 1
+                                     orderby c.member_of_cast_and_crew.first_name
+                                     select c).ToList();
+                    }
+                    directorsByYearOfDeath = directors;
+                    List<director> filteredDirectors = DirectorsIntersect();
+                    dgvDirectors.Rows.Clear();
+                    foreach (var director in filteredDirectors)
+                    {
+                        DataGridViewRow row = new DataGridViewRow()
+                        {
+                            Tag = director
+                        };
+                        row.CreateCells(dgvDirectors);
+                        row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
+                            director.member_of_cast_and_crew.born, director.member_of_cast_and_crew.birthplace,
+                            director.member_of_cast_and_crew.died);
+                        dgvDirectors.Rows.Add(row);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
             }
         }
 
         private void tbBirthplace_TextChanged(object sender, EventArgs e)
         {
-            MessageBox.Show("TODO");
+            try
+            {
+                string birthplace = tbBirthplace.Text;
+                using (MovieDB context = new MovieDB())
+                {
+                    var directors = (from c in context.directors
+                                     where c.member_of_cast_and_crew.birthplace.ToLower().StartsWith(birthplace.ToLower()) &&
+                                     c.member_of_cast_and_crew.active == 1
+                                     orderby c.member_of_cast_and_crew.first_name
+                                     select c).ToList();
+                    directorsByLastName = directors;
+                    List<director> filteredDirectors = DirectorsIntersect();
+                    dgvDirectors.Rows.Clear();
+                    foreach (var director in filteredDirectors)
+                    {
+                        DataGridViewRow row = new DataGridViewRow()
+                        {
+                            Tag = director
+                        };
+                        row.CreateCells(dgvDirectors);
+                        row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
+                            director.member_of_cast_and_crew.born, director.member_of_cast_and_crew.birthplace,
+                            director.member_of_cast_and_crew.died);
+                        dgvDirectors.Rows.Add(row);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
         }
 
         private void tbMinMovies_KeyPress(object sender, KeyPressEventArgs e)
@@ -253,71 +356,102 @@ namespace HCI_Movies.UserControls
 
         private void tbMinMovies_TextChanged(object sender, EventArgs e)
         {
-            int minMovies = -1;
-            if (!tbMinMovies.Text.Equals(""))
+            try
             {
-                minMovies = int.Parse(tbMinMovies.Text);
-            }
-            using (MovieDB context = new MovieDB())
-            {
-                List<director> directors = null;
-                if (minMovies == -1)
+                int minMovies = -1;
+                if (!tbMinMovies.Text.Equals(""))
                 {
-                    directors = (from c in context.directors select c).ToList();
+                    minMovies = int.Parse(tbMinMovies.Text);
                 }
-                else
+                using (MovieDB context = new MovieDB())
                 {
-                    directors = (from c in context.directors where c.movies.Count >= minMovies select c).ToList();
-                }
-                directorsByMinMovies = directors;
-                List<director> filteredDirectors = DirectorsIntersect();
-                dgvDirectors.Rows.Clear();
-                foreach (var director in filteredDirectors)
-                {
-                    DataGridViewRow row = new DataGridViewRow()
+                    List<director> directors = null;
+                    if (minMovies == -1)
                     {
-                        Tag = director
-                    };
-                    row.CreateCells(dgvDirectors);
-                    row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
-                        director.member_of_cast_and_crew.born, "", director.member_of_cast_and_crew.died);
-                    dgvDirectors.Rows.Add(row);
+                        directors = (from c in context.directors
+                                     where
+         c.member_of_cast_and_crew.active == 1
+                                     orderby c.member_of_cast_and_crew.first_name
+                                     select c).ToList();
+                    }
+                    else
+                    {
+                        directors = (from c in context.directors
+                                     where c.movies.Count >= minMovies &&
+                                     c.member_of_cast_and_crew.active == 1
+                                     orderby c.member_of_cast_and_crew.first_name
+                                     select c).ToList();
+                    }
+                    directorsByMinMovies = directors;
+                    List<director> filteredDirectors = DirectorsIntersect();
+                    dgvDirectors.Rows.Clear();
+                    foreach (var director in filteredDirectors)
+                    {
+                        DataGridViewRow row = new DataGridViewRow()
+                        {
+                            Tag = director
+                        };
+                        row.CreateCells(dgvDirectors);
+                        row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
+                            director.member_of_cast_and_crew.born, director.member_of_cast_and_crew.birthplace,
+                            director.member_of_cast_and_crew.died);
+                        dgvDirectors.Rows.Add(row);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
             }
         }
 
         private void tbMaxMovies_TextChanged(object sender, EventArgs e)
         {
-            int maxMovies = -1;
-            if (!tbMaxMovies.Text.Equals(""))
+            try
             {
-                maxMovies = int.Parse(tbMaxMovies.Text);
-            }
-            using (MovieDB context = new MovieDB())
-            {
-                List<director> directors = null;
-                if (maxMovies == -1)
+                int maxMovies = -1;
+                if (!tbMaxMovies.Text.Equals(""))
                 {
-                    directors = (from c in context.directors select c).ToList();
+                    maxMovies = int.Parse(tbMaxMovies.Text);
                 }
-                else
+                using (MovieDB context = new MovieDB())
                 {
-                    directors = (from c in context.directors where c.movies.Count <= maxMovies select c).ToList();
-                }
-                directorsByMaxMovies = directors;
-                List<director> filteredDirectors = DirectorsIntersect();
-                dgvDirectors.Rows.Clear();
-                foreach (var director in filteredDirectors)
-                {
-                    DataGridViewRow row = new DataGridViewRow()
+                    List<director> directors = null;
+                    if (maxMovies == -1)
                     {
-                        Tag = director
-                    };
-                    row.CreateCells(dgvDirectors);
-                    row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
-                        director.member_of_cast_and_crew.born, "", director.member_of_cast_and_crew.died);
-                    dgvDirectors.Rows.Add(row);
+                        directors = (from c in context.directors
+                                     where c.member_of_cast_and_crew.active == 1
+                                     orderby c.member_of_cast_and_crew.first_name
+                                     select c).ToList();
+                    }
+                    else
+                    {
+                        directors = (from c in context.directors
+                                     where c.movies.Count <= maxMovies &&
+                                     c.member_of_cast_and_crew.active == 1
+                                     orderby c.member_of_cast_and_crew.first_name
+                                     select c).ToList();
+                    }
+                    directorsByMaxMovies = directors;
+                    List<director> filteredDirectors = DirectorsIntersect();
+                    dgvDirectors.Rows.Clear();
+                    foreach (var director in filteredDirectors)
+                    {
+                        DataGridViewRow row = new DataGridViewRow()
+                        {
+                            Tag = director
+                        };
+                        row.CreateCells(dgvDirectors);
+                        row.SetValues(director.member_of_cast_and_crew.first_name, director.member_of_cast_and_crew.last_name,
+                            director.member_of_cast_and_crew.born, director.member_of_cast_and_crew.birthplace,
+                            director.member_of_cast_and_crew.died);
+                        dgvDirectors.Rows.Add(row);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
             }
         }
 
@@ -335,10 +469,12 @@ namespace HCI_Movies.UserControls
                         {
                             first_name = addMemberOfCastAndCrew.FirstName,
                             last_name = addMemberOfCastAndCrew.LastName,
+                            birthplace = addMemberOfCastAndCrew.Birthplace,
                             born = addMemberOfCastAndCrew.Born,
                             died = died,
                             bio = addMemberOfCastAndCrew.Bio,
-                            image = addMemberOfCastAndCrew.MemberImage
+                            image = addMemberOfCastAndCrew.MemberImage,
+                            active = 1
                         };
                         var director = new director()
                         {
@@ -354,20 +490,15 @@ namespace HCI_Movies.UserControls
                             context.actors.Add(actor);
                         }
                         context.SaveChanges();
-                        FillDirectorsTable();
-                        tbFirstName.Clear();
-                        tbLastName.Clear();
-                        cmbYearOfBirth.SelectedIndex = 0;
-                        cmbYearOfDeath.SelectedIndex = 0;
-                        tbBirthplace.Clear();
-                        tbMinMovies.Clear();
-                        tbMaxMovies.Clear();
+                        RefreshTableAndFilters();
+                        ActorsUcl.Instance.RefreshTableAndFilters();
+                        MoviesUcl.Instance.RefreshTableAndFilters();
+                        MessageBox.Show("Director successfully added.", "Success", MessageBoxButtons.OK);
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.StackTrace);
-                    MessageBox.Show(ex.StackTrace);
                 }
             }
         }
@@ -385,6 +516,7 @@ namespace HCI_Movies.UserControls
                         director director = (director)row.Tag;
                         addMemberOfCastAndCrew.FirstName = director.member_of_cast_and_crew.first_name;
                         addMemberOfCastAndCrew.LastName = director.member_of_cast_and_crew.last_name;
+                        addMemberOfCastAndCrew.Birthplace = director.member_of_cast_and_crew.birthplace;
                         addMemberOfCastAndCrew.Born = director.member_of_cast_and_crew.born;
                         if (director.member_of_cast_and_crew.died.HasValue)
                         {
@@ -397,7 +529,10 @@ namespace HCI_Movies.UserControls
                         }
                         addMemberOfCastAndCrew.MemberImage = director.member_of_cast_and_crew.image;
                         addMemberOfCastAndCrew.Bio = director.member_of_cast_and_crew.bio;
-                        var actors = (from c in context.actors where c.id == director.id select c).ToList();
+                        var actors = (from c in context.actors
+                                      where c.id == director.id &&
+                                      c.member_of_cast_and_crew.active == 1
+                                      select c).ToList();
                         if (actors.Count > 0)
                         {
                             addMemberOfCastAndCrew.DoubleMember = true;
@@ -412,6 +547,7 @@ namespace HCI_Movies.UserControls
                             context.directors.Attach(director);
                             director.member_of_cast_and_crew.first_name = addMemberOfCastAndCrew.FirstName;
                             director.member_of_cast_and_crew.last_name = addMemberOfCastAndCrew.LastName;
+                            director.member_of_cast_and_crew.birthplace = addMemberOfCastAndCrew.Birthplace;
                             director.member_of_cast_and_crew.born = addMemberOfCastAndCrew.Born;
                             if (addMemberOfCastAndCrew.Dead)
                             {
@@ -444,26 +580,81 @@ namespace HCI_Movies.UserControls
                                 }
                             }
                             context.SaveChanges();
-                            FillDirectorsTable();
-                            tbFirstName.Clear();
-                            tbLastName.Clear();
-                            cmbYearOfBirth.SelectedIndex = 0;
-                            cmbYearOfDeath.SelectedIndex = 0;
-                            tbBirthplace.Clear();
-                            tbMinMovies.Clear();
-                            tbMaxMovies.Clear();
+                            RefreshTableAndFilters();
+                            ActorsUcl.Instance.RefreshTableAndFilters();
+                            MoviesUcl.Instance.RefreshTableAndFilters();
+                            MessageBox.Show("Changes successfully saved.", "Success", MessageBoxButtons.OK);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.StackTrace);
-                    MessageBox.Show(ex.StackTrace);
                 }
             }
             else
             {
-                MessageBox.Show("You haven't chosen a director.");
+                MessageBox.Show("You haven't chosen a director.", "Warning", MessageBoxButtons.OK);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvDirectors.SelectedRows.Count > 0)
+            {
+                try
+                {
+                    using (MovieDB context = new MovieDB())
+                    {
+                        DataGridViewRow row = dgvDirectors.SelectedRows[0];
+                        director director = (director)row.Tag;
+                        if (MessageBox.Show("Are you sure you want to delete director: " + director.member_of_cast_and_crew.first_name + " " + director.member_of_cast_and_crew.last_name + "?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            context.directors.Attach(director);
+                            director.member_of_cast_and_crew.active = 0;
+                            context.SaveChanges();
+                            RefreshTableAndFilters();
+                            ActorsUcl.Instance.RefreshTableAndFilters();
+                            MoviesUcl.Instance.RefreshTableAndFilters();
+                            MessageBox.Show("Director successfully deleted.", "Success", MessageBoxButtons.OK);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.StackTrace);
+                }
+            }
+            else
+            {
+                MessageBox.Show("You haven't chosen a director.", "Warning", MessageBoxButtons.OK);
+            }
+        }
+
+        public void RefreshTableAndFilters()
+        {
+            FillDirectorsTable();
+            tbFirstName.Clear();
+            tbLastName.Clear();
+            cmbYearOfBirth.SelectedIndex = 0;
+            cmbYearOfDeath.SelectedIndex = 0;
+            tbBirthplace.Clear();
+            tbMinMovies.Clear();
+            tbMaxMovies.Clear();
+        }
+
+        private void btnDetails_Click(object sender, EventArgs e)
+        {
+            if (dgvDirectors.SelectedRows.Count > 0)
+            {
+                DataGridViewRow row = dgvDirectors.SelectedRows[0];
+                director director = (director)row.Tag;
+                MemberOfCastAndCrewDetailsForm memberOfCastAndCrewDetailsForm = new MemberOfCastAndCrewDetailsForm(director.id, "director");
+                memberOfCastAndCrewDetailsForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("You haven't chosen a director.", "Warning", MessageBoxButtons.OK);
             }
         }
     }

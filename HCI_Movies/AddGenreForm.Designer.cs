@@ -75,6 +75,7 @@
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.lblName);
             this.ForeColor = System.Drawing.Color.Black;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "AddGenreForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
